@@ -1,0 +1,42 @@
+body, * {
+    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.bg-gray{
+    background-color: #f2f2f2;
+}
+.text-center {
+    text-align: center;
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 80%;
+}
+.row {
+    -ms-flex-wrap:wrap;
+    display:-ms-flexbox;display:flex;
+    display:-webkit-box;
+    flex-wrap:wrap;
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-control {
+    border: 0px;
+    border-bottom: 2px solid gray;
+    padding: 10px;
+    width: 100%;
+}
+.form-control:focus {
+    outline: none;
+    border-bottom: 2px solid #3266bc;
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Volkswagen Gerente Global</title>
+	<!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/utils.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/header.css">
+</head>
+<body>
+    <header class="row col-12">
+        <ul>
+            <li><img src="img/logoMenu.png" alt=""></li>
+            <li><a href="gg_sucursales.html">Sucursales</a></li>
+            <li><a href="gg_usuarios.html">Usuarios</a></li>
+            <li><a href="gg_vehiculos.html">Vehículos</a></li>
+            <li><a href="" class="active">Stocks</a></li>
+            <li><a href="gg_reportes.html">Reportes</a></li>
+            <!-- <li class="float-right"><a href="">Usuario</a></li> -->
+            <li class="dropdown float-right">
+                <a href="javascript:void(0)" class="dropbtn">Usuario</a>
+                <div class="dropdown-content">
+                    <span>Perfil: Gerente global</span>
+                    <a href="#">Notificación 1</a>
+                    <a href="#">Notificación 2</a>
+                    <a href="#">Cerrar sesión</a>
+                </div>
+            </li>
+        </ul>
+    </header>
+	<main class="col-12 pl-20 pr-15 pt-20">
+        <h2 class="">Gestión de Stocks</h2>
+        <div class="mt-10">
+            <button id="btnAgregarStock" class="bg-primary">Agregar stock</button>
+            <button id="btnEditarStock" class="bg-primary">Editar stock</button>
+        </div>
+        <section class="col-12 pt-20">
+            <table>
+                <tr>
+                    <th>Id stock</th>
+                    <th>Sucursal destino</th>
+                    <th>Fecha envío</th>
+                    <th>Hora envío</th>
+                    <th>Fecha recepción</th>
+                    <th>Estado</th>
+                    <th>Cantidad vehículos inicial</th>
+                    <th>Cantidad vehículos restantes</th>
+                </tr>
+                <tr>
+                    <td>0001</td>
+                    <td>Sucursal Rancagua</td>
+                    <td>2018-02-17</td>
+                    <td>14:00 hrs</td>
+                    <td>2018-03-14</td>
+                    <td>Recibido</td>
+                    <td>30</td>
+                    <td>30</td>
+                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                <tr>
+                    <td>0001</td>
+                    <td>Sucursal Rancagua</td>
+                    <td>2018-02-17</td>
+                    <td>14:00 hrs</td>
+                    <td>2018-03-14</td>
+                    <td>Recibido</td>
+                    <td>30</td>
+                    <td>30</td>
+                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                <tr>
+                    <td>0001</td>
+                    <td>Sucursal Rancagua</td>
+                    <td>2018-02-17</td>
+                    <td>14:00 hrs</td>
+                    <td>2018-03-14</td>
+                    <td>Recibido</td>
+                    <td>30</td>
+                    <td>30</td>
+                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                <tr>
+                    <td>0001</td>
+                    <td>Sucursal Rancagua</td>
+                    <td>2018-02-17</td>
+                    <td>14:00 hrs</td>
+                    <td>2018-03-14</td>
+                    <td>Recibido</td>
+                    <td>30</td>
+                    <td>30</td>
+                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+            </table>
+        </section>
+	</main>	
+    <!-- Modal agregar inicia -->
+        <div id="mAgregarStock" class="modal">
+            <div class="modal-header center">
+                <span class="close">&times;</span>
+                <h2>Agregar stock</h2>
+            </div>
+            <div class="modal-content">
+                <form action="POST" class="col-7 center">
+                    <label for="area">Sucursal destino</label>
+                    <select name="area" id="area" class="form-control">
+                        <option value="0">Sucursal destino</option>
+                        <option value="1">Rancagua</option>
+                        <option value="2">Coliman</option>
+                    </select>
+                    <label for="fechaHoraEnvio">Fecha y hora de envío</label>
+                    <input type="datetime-local" name="fechaHoraEnvio" id="fechaHoraEnvio" class="form-control">
+                </form>
+            </div>
+            <div class="modal-footer center">
+                <div class="row">
+                    <div class="col-3 mr-10">
+                        <button class="form-control bg-primary">Agregar</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="form-control bg-danger" id="cancelarAgregar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+    <!-- Modal agregar termina -->
+    <!-- Modal editar inicia -->
+    <div id="mEditarStock" class="modal">
+        <div class="modal-all">
+
+            <div class="modal-header center">
+                <span class="close">&times;</span>
+                <h2>Editar stock</h2>
+            </div>
+            <div class="modal-content">
+                <form action="POST" class="col-7 center">
+                    <label for="area">Sucursal destino</label>
+                    <select name="area" id="area" class="form-control">
+                        <option value="0">Sucursal destino</option>
+                        <option value="1">Rancagua</option>
+                        <option value="2">Coliman</option>
+                    </select>
+                    <label for="fechaHoraEnvio">Fecha y hora de envío</label>
+                    <input type="datetime-local" name="fechaHoraEnvio" id="fechaHoraEnvio" class="form-control">
+                    <label for="estadoStock">Estado del stock</label>
+                    <select name="estadoStock" id="estadoStock" class="form-control">
+                        <option value="0">Estado</option>
+                        <option value="1">Pendiente</option>
+                        <option value="1">Enviado</option>
+                        <option value="2">Recibido</option>
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer center">
+                <div class="row">
+                    <div class="col-3 mr-10">
+                        <button class="form-control bg-primary">Editar</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="form-control bg-danger" id="cancelarEditar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+          
+    <!-- Modal editar termina -->
+</body>
+<script>
+    var modalAgregar = document.getElementById('mAgregarStock');
+    var btnAgregar = document.getElementById("btnAgregarStock");
+    var btnCancelarAgregar = document.getElementById("cancelarAgregar");
+    var btnCancelarEditar = document.getElementById("cancelarEditar");
+    var span = document.getElementsByClassName("close")[0];
+    btnAgregar.onclick = function() {
+        modalAgregar.style.display = "block";
+    }
+    btnCancelarAgregar.onclick = function() {
+        modalAgregar.style.display = "none";
+    }
+    btnCancelarEditar.onclick = function() {
+        modalEditar.style.display = "none";
+    }
+    span.onclick = function() {
+        modalAgregar.style.display = "none";
+        modalEditar.style.display = "none";        
+    }
+    window.onclick = function(event) {
+        if (event.target == modalAgregar) {
+            modalAgregar.style.display = "none";
+        }
+        if (event.target == modalEditar) {
+            modalEditar.style.display = "none";
+        }
+    }
+
+    var modalEditar = document.getElementById('mEditarStock');
+    var btnEditar = document.getElementById("btnEditarStock");
+    var span = document.getElementsByClassName("close")[1];
+    btnEditar.onclick = function() {
+        modalEditar.style.display = "block";
+    }
+</script>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Volkswagen Gerente Agencia</title>
+	<!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/utils.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/header.css">
+</head>
+<body>
+    <header class="row col-12">
+        <ul>
+            <li><img src="img/logoMenu.png" alt=""></li>
+            <li><a href="ga_envios.html">Envíos</a></li>
+            <li><a href="ga_stocks.html">Stocks</a></li>
+            <li><a href="ga_reportes.html" class="active">Reportes</a></li>
+            <li><a href="ga_usuarios.html">Usuarios</a></li>
+            <!-- <li class="float-right"><a href="">Usuario</a></li> -->
+            <li class="dropdown float-right">
+                <a href="javascript:void(0)" class="dropbtn">Usuario</a>
+                <div class="dropdown-content">
+                    <span>Perfil: Gerente agencia</span>
+                    <a href="#">Notificación 1</a>
+                    <a href="#">Notificación 2</a>
+                    <a href="#">Cerrar sesión</a>
+                </div>
+            </li>
+        </ul>
+    </header>
+	<main class="col-12 pl-20 pr-15 pt-20">
+        <h2 class="">Gestión de Reportes</h2>
+        <div class="mt-10">
+            <button id="btnAgregarReporte" class="bg-primary">Agregar reporte</button>
+        </div>
+        <section class="col-12 pt-20">
+            <table>
+                <tr>
+                    <th>Id reporte</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                    <th>Ventas</th>
+                    <th>Solicitudes</th>
+                    <th>Stock</th>
+                    <th>Envíos</th>
+                </tr>
+                <tr>
+                    <td>0001</td>
+                    <td>2018-02-17</td>
+                    <td>2018-03-14</td>
+                    <td>10</td>
+                    <td>3</td>
+                    <td>20</td>
+                    <td>4</td>
+                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                <tr>
+                    <td>0001</td>
+                    <td>2018-02-17</td>
+                    <td>2018-03-14</td>
+                    <td>10</td>
+                    <td>3</td>
+                    <td>20</td>
+                    <td>4</td>
+                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                <tr>
+                    <td>0001</td>
+                    <td>2018-02-17</td>
+                    <td>2018-03-14</td>
+                    <td>10</td>
+                    <td>3</td>
+                    <td>20</td>
+                    <td>4</td>
+                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                <tr>
+                    <td>0001</td>
+                    <td>2018-02-17</td>
+                    <td>2018-03-14</td>
+                    <td>10</td>
+                    <td>3</td>
+                    <td>20</td>
+                    <td>4</td>
+                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+            </table>
+        </section>
+	</main>	
+    <!-- Modal agregar inicia -->
+        <div id="mAgregarReporte" class="modal">
+            <div class="modal-header center">
+                <span class="close">&times;</span>
+                <h2>Agregar reporte</h2>
+            </div>
+            <div class="modal-content">
+                <form action="POST" class="col-7 center">
+                    <label for="fechaInicio">Fecha de inicio</label>
+                    <input type="date-local" name="fechaInicio" id="fechaInicio" class="form-control">
+                    <label for="fechaFin">Fecha de inicio</label>
+                    <input type="date-local" name="fechaFin" id="fechaFin" class="form-control">
+                </form>
+            </div>
+            <div class="modal-footer center">
+                <div class="row">
+                    <div class="col-3 mr-10">
+                        <button class="form-control bg-primary">Agregar</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="form-control bg-danger" id="cancelarAgregar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+    <!-- Modal agregar termina -->
+</body>
+<script>
+    var modalAgregar = document.getElementById('mAgregarReporte');
+    var btnAgregar = document.getElementById("btnAgregarReporte");
+    var btnCancelarAgregar = document.getElementById("cancelarAgregar");
+    var span = document.getElementsByClassName("close")[0];
+    btnAgregar.onclick = function() {
+        modalAgregar.style.display = "block";
+    }
+    btnCancelarAgregar.onclick = function() {
+        modalAgregar.style.display = "none";
+    }
+    span.onclick = function() {
+        modalAgregar.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modalAgregar) {
+            modalAgregar.style.display = "none";
+        }
+    }
+</script>
+</html>

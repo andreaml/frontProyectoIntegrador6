@@ -143,5 +143,16 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
-
 tr:hover {background-color:#f5f5f5;}
+.btn-file {
+    color: #111;
+    text-decoration: none;
+}
+.btn-file:hover {
+    color: #323232;
+    text-decoration: none;
+}
+.btn-file:active {
+    color: #3266bc;
+    text-decoration: none;
+}

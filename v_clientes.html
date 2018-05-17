@@ -2,198 +2,290 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Volkswagen Vendedor</title>
-	<!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Volkswagen Vendedor</title>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/utils.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/daterangepicker.css">
 </head>
 <body>
-    <header class="row col-12">
-        <ul>
-            <li><img src="img/logoMenu.png" alt=""></li>
-            <li><a href="v_clientes.html" class="active">Clientes</a></li>
-            <li><a href="v_catalogo.html">Catálogo</a></li>
-            <li><a href="v_ventas.html">Ventas</a></li>
-            <li><a href="v_seguimientos.html">Seguimientos</a></li>
-            <li><a href="v_solicitudes.html">Solicitudes</a></li>
-            <!-- <li class="float-right"><a href="">Usuario</a></li> -->
-            <li class="dropdown float-right">
-                <a href="javascript:void(0)" class="dropbtn">Usuario</a>
-                <div class="dropdown-content">
-                    <span>Perfil: Vendedor</span>
-                    <a href="#">Notificación 1</a>
-                    <a href="#">Notificación 2</a>
-                    <a href="#">Recordatorio 1</a>
-                    <a href="#">Recordatorio 2</a>
-                    <a href="#">Cerrar sesión</a>
-                </div>
-            </li>
-        </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand pl-3" href="#"><img src="img/logoMenu.png" alt="Volkswagen" class="nav-logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse pr-3" id="navbar">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0 text-uppercase">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="v_clientes.html">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="v_catalogo.html">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="v_ventas.html">Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="v_seguimientos.html">Seguimientos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="v_solicitudes.html">Solicitudes</a>
+                    </li>
+                    <li class="nav-item dropdown ml-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Notificación 1</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Notificación 2</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown btn-secondary ml-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuario
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Perfil: <span>Vendedor</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Opción 1</a>
+                            <a class="dropdown-item" href="#">Opción 2</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Cerrar sesión</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
-	<main class="col-12 pl-20 pr-15 pt-20">
-        <h2 class="">Catálogo de clientes</h2>
-        <div class="mt-10">
-            <button id="btnAgregarCliente" class="bg-primary">Agregar cliente</button>
-            <button id="btnEditarCliente" class="bg-primary">Editar cliente</button>
+
+    <div class="bg-title container-fluid">
+    </div>
+
+	<section class="container-fluid">
+        <div class="col-12">
+            <h2 class="section-title">Catálogo de clientes</h2>
+            
+            <div class="d-flex edition-buttons justify-content-end">
+                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#mAgregarCliente">
+                    <i class="fa fa-plus-circle"></i>
+                    Agregar vehículo
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table  class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input position-static" type="checkbox" id="cbIdCliente" value="idCliente" name="cliente">
+                                </div>
+                            </th>
+                            <th>Nombre</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Dirección</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input position-static" type="checkbox" id="cbIdCliente" value="idCliente" name="cliente">
+                                </div>
+                            </th>
+                            <td>Andrea</td>
+                            <td>Muñoz</td>
+                            <td>Liy</td>
+                            <td>31210232323</td>
+                            <td>aliy@ucol.mx</td>
+                            <td>Avenida Universidad #333, Colima, Colima</td>
+                            <td>
+                                <a href="" class="text-secondary" data-toggle="modal" data-target="#mEditarCliente">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input position-static" type="checkbox" id="cbIdCliente" value="idCliente" name="cliente">
+                                </div>
+                            </th>
+                            <td>Andrea</td>
+                            <td>Muñoz</td>
+                            <td>Liy</td>
+                            <td>31210232323</td>
+                            <td>aliy@ucol.mx</td>
+                            <td>Avenida Universidad #333, Colima, Colima</td>
+                            <td>
+                                <a href="" class="text-secondary" data-toggle="modal" data-target="#mEditarCliente">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input position-static" type="checkbox" id="cbIdCliente" value="idCliente" name="cliente">
+                                </div>
+                            </th>
+                            <td>Andrea</td>
+                            <td>Muñoz</td>
+                            <td>Liy</td>
+                            <td>31210232323</td>
+                            <td>aliy@ucol.mx</td>
+                            <td>Avenida Universidad #333, Colima, Colima</td>
+                            <td>
+                                <a href="" class="text-secondary" data-toggle="modal" data-target="#mEditarCliente">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input position-static" type="checkbox" id="cbIdCliente" value="idCliente" name="cliente">
+                                </div>
+                            </th>
+                            <td>Andrea</td>
+                            <td>Muñoz</td>
+                            <td>Liy</td>
+                            <td>31210232323</td>
+                            <td>aliy@ucol.mx</td>
+                            <td>Avenida Universidad #333, Colima, Colima</td>
+                            <td>
+                                <a href="" class="text-secondary" data-toggle="modal" data-target="#mEditarCliente">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link border border-secondary" href="#">Anterior</a></li>
+                    <li class="page-item"><a class="page-link border border-secondary" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link border border-secondary" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link border border-secondary" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link border border-secondary" href="#">Siguiente</a></li>
+                </ul>
+            </nav>
+
+            <div class="d-flex edition-buttons justify-content-end">
+                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminar">
+                    <i class="fa fa-trash"></i>
+                    Eliminar cliente
+                </button>
+            </div>
         </div>
-        <section class="col-12 pt-20">
-            <table>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido paterno</th>
-                    <th>Apellido materno</th>
-                    <th>Teléfono</th>
-                    <th>Correo</th>
-                    <th>Dirección</th>
-                </tr>
-                <tr>
-                    <td>Andrea</td>
-                    <td>Muñoz</td>
-                    <td>Liy</td>
-                    <td>31210232323</td>
-                    <td>aliy@ucol.mx</td>
-                    <td>Avenida Universidad #333, Colima, Colima</td>
-                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                </tr>
-                <tr>
-                    <td>Andrea</td>
-                    <td>Muñoz</td>
-                    <td>Liy</td>
-                    <td>31210232323</td>
-                    <td>aliy@ucol.mx</td>
-                    <td>Avenida Universidad #333, Colima, Colima</td>
-                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                </tr>
-                <tr>
-                    <td>Andrea</td>
-                    <td>Muñoz</td>
-                    <td>Liy</td>
-                    <td>31210232323</td>
-                    <td>aliy@ucol.mx</td>
-                    <td>Avenida Universidad #333, Colima, Colima</td>
-                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                </tr>
-                <tr>
-                    <td>Andrea</td>
-                    <td>Muñoz</td>
-                    <td>Liy</td>
-                    <td>31210232323</td>
-                    <td>aliy@ucol.mx</td>
-                    <td>Avenida Universidad #333, Colima, Colima</td>
-                    <td><a href="" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                </tr>
-            </table>
-        </section>
+    </section>
 	</main>	
     <!-- Modal agregar inicia -->
-    <div id="mAgregarCliente" class="modal">
-            <div class="modal-header center">
-                <span class="close">&times;</span>
-                <h2>Agregar cliente</h2>
-            </div>
+    <div id="mAgregarCliente" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="modalAgregarLabel" data-backdrop="static">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="POST" class="col-7 center text-center">
-                    <input type="text" name="nombre" id="nombre" placeholder="Nombre de cliente" class="form-control">                    
-                    <input type="text" name="apellidoP" id="apellidoP" placeholder="Apellido paterno de cliente" class="form-control">
-                    <input type="text" name="apellidoM" id="apellidoM" placeholder="Apellido materno de cliente" class="form-control">
-                    <input type="phone" name="telefono" id="telefono" placeholder="Teléfono de cliente" class="form-control">
-                    <input type="email" name="correo" id="correo" placeholder="Correo de cliente" class="form-control">
-                    <textarea name="direccion" id="direccion" cols="30" rows="3" placeholder="Dirección de cliente" class="form-control"></textarea>
-                    <select name="area" id="area" class="form-control">
-                        <option value="0">Sucursal</option>
-                        <option value="1">Rancagua</option>
-                        <option value="2">Coliman</option>
-                    </select>
-                </form>
-            </div>
-            <div class="modal-footer center">
-                <div class="row">
-                    <div class="col-3 mr-10">
-                        <button class="form-control bg-primary">Agregar</button>
-                    </div>
-                    <div class="col-3">
-                        <button class="form-control bg-danger" id="cancelarAgregar">Cancelar</button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgregarLabel">Agregar cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre de cliente" class="form-control">                    
+                        <input type="text" name="apellidoP" id="apellidoP" placeholder="Apellido paterno de cliente" class="form-control">
+                        <input type="text" name="apellidoM" id="apellidoM" placeholder="Apellido materno de cliente" class="form-control">
+                        <input type="phone" name="telefono" id="telefono" placeholder="Teléfono de cliente" class="form-control">
+                        <input type="email" name="correo" id="correo" placeholder="Correo de cliente" class="form-control">
+                        <textarea name="direccion" id="direccion" cols="30" rows="3" placeholder="Dirección de cliente" class="form-control"></textarea>
+                        <select name="area" id="area" class="form-control">
+                            <option value="0">Sucursal</option>
+                            <option value="1">Rancagua</option>
+                            <option value="2">Coliman</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Agregar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
-          </div>
+        </div>
+    </div>
     <!-- Modal agregar termina -->
     <!-- Modal editar inicia -->
-    <div id="mEditarCliente" class="modal">
-        <div class="modal-all">
-
-            <div class="modal-header center">
-                <span class="close">&times;</span>
-                <h2>Editar cliente</h2>
-            </div>
+    <div id="mEditarCliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel" data-backdrop="static">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="POST" class="col-7 center text-center">
-                    <input type="text" name="nombre" id="nombre" placeholder="Nombre de cliente" class="form-control">                    
-                    <input type="text" name="apellidoP" id="apellidoP" placeholder="Apellido paterno de cliente" class="form-control">
-                    <input type="text" name="apellidoM" id="apellidoM" placeholder="Apellido materno de cliente" class="form-control">
-                    <input type="phone" name="telefono" id="telefono" placeholder="Teléfono de cliente" class="form-control">
-                    <input type="email" name="correo" id="correo" placeholder="Correo de cliente" class="form-control">
-                    <textarea name="direccion" id="direccion" cols="30" rows="3" placeholder="Dirección de cliente" class="form-control"></textarea>
-                    <select name="area" id="area" class="form-control">
-                        <option value="0">Sucursal</option>
-                        <option value="1">Rancagua</option>
-                        <option value="2">Coliman</option>
-                    </select>
-                </form>
-            </div>
-            <div class="modal-footer center">
-                <div class="row">
-                    <div class="col-3 mr-10">
-                        <button class="form-control bg-primary">Editar</button>
-                    </div>
-                    <div class="col-3">
-                        <button class="form-control bg-danger" id="cancelarEditar">Cancelar</button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarLabel">Editar cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre de cliente" class="form-control">                    
+                        <input type="text" name="apellidoP" id="apellidoP" placeholder="Apellido paterno de cliente" class="form-control">
+                        <input type="text" name="apellidoM" id="apellidoM" placeholder="Apellido materno de cliente" class="form-control">
+                        <input type="phone" name="telefono" id="telefono" placeholder="Teléfono de cliente" class="form-control">
+                        <input type="email" name="correo" id="correo" placeholder="Correo de cliente" class="form-control">
+                        <textarea name="direccion" id="direccion" cols="30" rows="3" placeholder="Dirección de cliente" class="form-control"></textarea>
+                        <select name="area" id="area" class="form-control">
+                            <option value="0">Sucursal</option>
+                            <option value="1">Rancagua</option>
+                            <option value="2">Coliman</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Editar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
-          </div>
         </div>
+    </div>
           
     <!-- Modal editar termina -->
-</body>
-<script>
-    var modalAgregar = document.getElementById('mAgregarCliente');
-    var btnAgregar = document.getElementById("btnAgregarCliente");
-    var btnCancelarAgregar = document.getElementById("cancelarAgregar");
-    var btnCancelarEditar = document.getElementById("cancelarEditar");
-    var span = document.getElementsByClassName("close")[0];
-    btnAgregar.onclick = function() {
-        modalAgregar.style.display = "block";
-    }
-    btnCancelarAgregar.onclick = function() {
-        modalAgregar.style.display = "none";
-    }
-    btnCancelarEditar.onclick = function() {
-        modalEditar.style.display = "none";
-    }
-    span.onclick = function() {
-        modalAgregar.style.display = "none";
-        modalEditar.style.display = "none";        
-    }
-    window.onclick = function(event) {
-        if (event.target == modalAgregar) {
-            modalAgregar.style.display = "none";
-        }
-        if (event.target == modalEditar) {
-            modalEditar.style.display = "none";
-        }
-    }
+    <!-- Modal eliminar inicia -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEliminarLabel">Eliminar cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Desea eliminar el cliente <b id="modalEliminarIdVehiculo">id cliente</b>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal eliminar termina -->
 
-    var modalEditar = document.getElementById('mEditarCliente');
-    var btnEditar = document.getElementById("btnEditarCliente");
-    var span = document.getElementsByClassName("close")[1];
-    btnEditar.onclick = function() {
-        modalEditar.style.display = "block";
-    }
-</script>
+    <script src="js/general/jquery-3.3.1.min.js"></script>
+    <script src="js/general/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+</body>
 </html>

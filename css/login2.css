@@ -1,0 +1,29 @@
+body {
+	background-image: url(../img/img8.jpg);
+    background-position: 68.5% 31.5%;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+	/*background-color: rgba(34, 41, 59, 0.52);right: 8em;*/
+	background-color: #fff;
+	max-width: 60em;
+    height: 25em;
+	position: absolute;
+    top: 11em;
+    left: 10%;
+    right: 10%;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+}
+
+#bg-login {
+	background-image: url(../img/img5.jpg);
+    background-position: 48% 68%;
+}
+
+@media screen and (max-width: 1205px) {
+	#bg-login {display: none;}
+	.login {max-width: 30em;}
+}

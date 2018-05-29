@@ -9,8 +9,9 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
     <link rel="stylesheet" href="css/daterangepicker.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
@@ -63,7 +64,7 @@
             </div>
         </nav>
     </header>
-   <div class="bg-title container-fluid">
+    <div class="bg-title container-fluid">
     </div>
     <section class="container-fluid">
         <div class="col-12">
@@ -73,121 +74,35 @@
                     <i class="fa fa-plus-circle"></i>
                     Agregar Sucursal
                 </button>
-
             </div>
-            <div class="table-responsive">
-                <table class="table">
+            <div class="row mb-3">
+                <table id="tablaSucursales" class="table table-striped display select compact" style="width:100%">
                     <thead class="thead-dark">
                         <tr>
                             <th>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" id="cbIdReporte" value="idReporte" name="reporte">
-                                </div>
+                                <input name="select_all" value="1" id="example-select-all" type="checkbox">
                             </th>
-                            <th>ID Sucursal </th>
-                           <th>Nombre</th>
+                            <th>ID Sucursal</th>
+                            <th>Nombre</th>
                             <th>Teléfono</th>
                             <th>Dirección</th>
                             <th>Ciudad</th>
                             <th>Estado</th>
+                            <th>Estatus</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" id="cbIdReporte" value="idReporte" name="reporte">
-                                </div>
-                            </td>
-                            <td>0001</td>
-                            <td>Rancagua</td>
-                            <td>31210232323</td>
-                            <td>Avenida Universidad #333</td>
-                            <td>Colima</td>
-                            <td>Colima</td>
-                            <td>
-                                <a href="" class="text-secondary" data-toggle="modal" data-target="#modalEditar">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" id="cbIdReporte" value="idReporte" name="reporte">
-                                </div>
-                            </td>
-                            <td>0002</td>
-                            <td>Rancagua</td>
-                            <td>31210232323</td>
-                            <td>Avenida Universidad #333</td>
-                            <td>Colima</td>
-                            <td>Colima</td>
-                            <td>
-                                <a href="" class="text-secondary" data-toggle="modal" data-target="#modalEditar">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" id="cbIdReporte" value="idReporte" name="reporte">
-                                </div>
-                            </td>
-                            <td>0003</td>
-                            <td>Rancagua</td>
-                            <td>31210232323</td>
-                            <td>Avenida Universidad #333</td>
-                            <td>Colima</td>
-                            <td>Colima</td>
-                            <td>
-                                <a href="" class="text-secondary" data-toggle="modal" data-target="#modalEditar">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input position-static" type="checkbox" id="cbIdReporte" value="idReporte" name="reporte">
-                                </div>
-                            </td>
-                            <td>0004</td>
-                            <td>Rancagua</td>
-                            <td>31210232323</td>
-                            <td>Avenida Universidad #333</td>
-                            <td>Colima</td>
-                            <td>Colima</td>
-                            <td>
-                                <a href="" class="text-secondary" data-toggle="modal" data-target="#modalEditar">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>                
                 </table>
-                 <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link border border-secondary" href="#">Anterior</a></li>
-                    <li class="page-item"><a class="page-link border border-secondary" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link border border-secondary" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link border border-secondary" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link border border-secondary" href="#">Siguiente</a></li>
-                </ul>
-            </nav>
+            </div>
             <div class="d-flex edition-buttons justify-content-end">
-                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminar">
-                    <i class="fa fa-trash"></i>
-                    Eliminar Sucursal
+                <button id="btnDeshabilitarSucursal" class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalDeshabilitar">
+                    <i class="fa fa-ban"></i>
+                    Deshabilitar Sucursal
                 </button>
             </div>
-            </div>
- 
-        </section> 
-        <!--
-      <!-- Modal agregar inicia -->
+        </div>
+    </section> 
+    <!-- Modal agregar inicia -->
     <div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog" aria-labelledby="modalAgregarLabel" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -201,7 +116,7 @@
                    <form>
                          <div class="form-group">
                             <label for="modalAgregarNombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" placeholder="Nombre de sucursal" class="form-control">
+                            <input type="text" name="sucursal" id="sucursal" placeholder="Nombre de sucursal" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="modalAgregarTelefono">Teléfono</label>
@@ -219,39 +134,39 @@
                         <div class="form-group">
                             <label for="Estado">Estado</label>
                             <select name="estado" id="estado" class="form-control">
-                                <option value="0">Selecciona un estado</option>                    
-                                <option value="1">Aguascalientes</option>                    
-                                <option value="2">Baja California</option>                    
-                                <option value="3">Baja California Sur</option>                    
-                                <option value="4">Campeche</option>                    
-                                <option value="5">Coahuila de Zaragoza</option>                    
-                                <option value="6">Colima</option>                    
-                                <option value="7">Chiapas</option>                    
-                                <option value="8">Chihuahua</option>                    
-                                <option value="9">Distrito Federal</option>                    
-                                <option value="10">Durango</option>                    
-                                <option value="11">Guanajuato</option>                    
-                                <option value="12">Guerrero</option>                    
-                                <option value="13">Hidalgo</option>                    
-                                <option value="14">Jalisco</option>                    
-                                <option value="15">México</option>                    
-                                <option value="16">Michoacán de Ocampo</option>                    
-                                <option value="17">Morelos</option>                    
-                                <option value="18">Nayarit</option>                    
-                                <option value="19">Nuevo León</option>                    
-                                <option value="20">Oaxaca</option>                    
-                                <option value="21">Puebla</option>                    
-                                <option value="22">Querétaro</option>                    
-                                <option value="23">Quintana Roo</option>                    
-                                <option value="24">San Luis Potosí</option>                    
-                                <option value="25">Sinaloa</option>                    
-                                <option value="26">Sonora</option>                    
-                                <option value="27">Tabasco</option>                    
-                                <option value="28">Tamaulipas</option>                    
-                                <option value="29">Tlaxcala</option>                    
-                                <option value="30">Veracruz de Ignacio de la Llave</option>                    
-                                <option value="31">Yucatán</option>                    
-                                <option value="32">Zacatecas</option>                    
+                                <option value="">Selecciona un estado</option>                    
+                                <option value="Aguascalientes">Aguascalientes</option>                    
+                                <option value="Baja California">Baja California</option>                    
+                                <option value="Baja California Sur">Baja California Sur</option>                    
+                                <option value="Campeche">Campeche</option>                    
+                                <option value="Coahuila de Zaragoza">Coahuila de Zaragoza</option>                    
+                                <option value="Colima">Colima</option>                    
+                                <option value="Chiapas">Chiapas</option>                    
+                                <option value="Chihuahua">Chihuahua</option>                    
+                                <option value="Distrito Federal">Distrito Federal</option>                    
+                                <option value="Durango">Durango</option>                    
+                                <option value="Guanajuato">Guanajuato</option>                    
+                                <option value="Guerrero">Guerrero</option>                    
+                                <option value="Hidalgo">Hidalgo</option>                    
+                                <option value="Jalisco">Jalisco</option>                    
+                                <option value="México">México</option>                    
+                                <option value="Michoacán de Ocampo">Michoacán de Ocampo</option>                    
+                                <option value="Morelos">Morelos</option>                    
+                                <option value="Nayarit">Nayarit</option>                    
+                                <option value="Nuevo León">Nuevo León</option>                    
+                                <option value="Oaxaca">Oaxaca</option>                    
+                                <option value="Puebla">Puebla</option>                    
+                                <option value="Querétaro">Querétaro</option>                    
+                                <option value="Quintana Roo">Quintana Roo</option>                    
+                                <option value="San Luis Potosí">San Luis Potosí</option>                    
+                                <option value="Sinaloa">Sinaloa</option>                    
+                                <option value="Sonora">Sonora</option>                    
+                                <option value="Tabasco">Tabasco</option>                    
+                                <option value="Tamaulipas">Tamaulipas</option>                    
+                                <option value="Tlaxcala">Tlaxcala</option>                    
+                                <option value="Veracruz de Ignacio de la Llave">Veracruz de Ignacio de la Llave</option>                    
+                                <option value="Yucatán">Yucatán</option>                    
+                                <option value="Zacatecas">Zacatecas</option>                    
                          </select>
                         </div>
                     </form>
@@ -278,24 +193,24 @@
                     <form>
                          <div class="form-group">
                             <label for="modalEditarNombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" placeholder="Nombre de sucursal" class="form-control">
+                            <input type="text" name="nombre" id="mEditarNombre" placeholder="Nombre de sucursal" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="modalEditarTelefono">Teléfono</label>
-                             <input type="text" name="telefono" id="telefono" placeholder="Teléfono de sucursal" class="form-control">
+                             <input type="text" name="telefono" id="mEditarTelefono" placeholder="Teléfono de sucursal" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="modalEditarDireccion">Dirección</label>
-                            <textarea name="direccion" id="direccion" cols="30" rows="3" placeholder="Dirección de sucursal" class="form-control"></textarea>
+                            <textarea name="direccion" id="mEditarDireccion" cols="30" rows="3" placeholder="Dirección de sucursal" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="modalEditarCiudad">Ciudad</label>
-                            <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad de sucursal" class="form-control">
+                            <input type="text" name="ciudad" id="mEditarCiudad" placeholder="Ciudad de sucursal" class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label for="EditarEstado">Estado</label>
-                            <select name="estado" id="estado" class="form-control">
+                            <select name="estado" id="mEditarEstado" class="form-control">
                                 <option value="0">Selecciona un estado</option>                    
                                 <option value="1">Aguascalientes</option>                    
                                 <option value="2">Baja California</option>                    
@@ -340,29 +255,35 @@
             </div>
         </div>
     </div>
-     <!-- Modal eliminar inicia -->
-   <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel" data-backdrop="static">
+    <!-- Modal deshabilitar inicia -->
+    <div class="modal fade" id="modalDeshabilitar" tabindex="-1" role="dialog" aria-labelledby="modalDeshabilitarLabel" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalEliminarLabel">Eliminar Sucursal</h5>
+                    <h5 class="modal-title" id="modalDeshabilitarLabel">Deshabilitar Sucursal</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Desea eliminar la Sucursal <b id="modalEliminarIdSucursal">id Sucursal</b>?</p>
+                    <p>¿Desea deshabilitar las siguientes sucursales?</p>
+                    <ul id="modalDeshabilitarIdSucursal">
+                    </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Eliminar</button>
+                    <button id="btnModalDeshabilitarSucursal" type="button" class="btn btn-danger">Deshabilitar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
     </div> 
 
-</body>
+</body> 
     <script src="js/general/jquery-3.3.1.min.js"></script>
     <script src="js/general/popper.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/general/datatables.min.js"></script>
+    <script src="js/general/sweetAlert.min.js"></script>
+    <script src="js/funcionesGenerales.js"></script>
+    <script src="js/gerenteGeneral/sucursales.js"></script>
 </html>

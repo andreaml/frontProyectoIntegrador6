@@ -3,6 +3,9 @@ body, * {
     font-weight: 300;
 }
 
+body {
+    background-color: #f3f5f6;
+}
 .nav-logo {
     width: 40px;
     height: auto;
@@ -30,6 +33,35 @@ body, * {
 
 .daterangepicker {
     z-index: 2000 !important;
+}
+
+table.dataTable {
+    border-collapse: collapse !important;
+}
+
+table tr.selected {
+    background-color: #0055b4b3 !important;
+}
+
+table tr.selected a,
+table tr.selected a:hover,
+table tr.selected a:active,
+table tr.selected a:focus {
+    color: white !important;
+}
+
+
+/* table .sorting_1,
+table .sorting_1:hover, */
+table tr.selected .sorting_1,
+table tr.selected:hover .sorting_1 {
+    background-color: transparent !important;
+}
+
+table tr.filaInactiva,
+table tr.filaInactiva > td:first-child input {
+    color: #6c757d !important;
+    cursor: not-allowed !important;
 }
 
 /* .daterangepicker > * {

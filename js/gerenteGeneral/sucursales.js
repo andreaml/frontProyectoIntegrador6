@@ -52,7 +52,7 @@ var configuracionBotonesEditarTabla = {
     orderable: false,
     className: 'dt-body-center',
     render: function (data, type, sucursal){
-            return `<a href="#" class="text-secondary btnEditarSucursal" data-toggle="modal" data-target="#modalEditar" data-sucursal="${JSON.stringify(sucursal)}">
+            return `<a href="#" class="text-secondary btnEditarSucursal" data-toggle="modal" data-target="#modalEditar" data-sucursal="${encodeURIComponent(JSON.stringify(sucursal))}">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>`
     }
@@ -274,19 +274,18 @@ function deshabilitarSucursales(listaIdSucursales) {
 
 function clickEditarSucursal() {
     $(`#${idTabla} tbody`).on( 'click', 'a', function () {
-        console.log("entraa")
-        asociarInformacionAModalEditar($(this).data('sucursal'));
+        let sucursalCodificada = $(this).data('sucursal');
+        let sucursal = JSON.parse(decodeURIComponent(sucursalCodificada));
+        asociarInformacionAModalEditar(sucursal);
     });
 }
 
 function asociarInformacionAModalEditar(sucursal) {
-    let sucursalSeleccionada = JSON.parse(sucursal);
-    console.log(sucursalSeleccionada)
-    $("#mEditarNombre").val(sucursalSeleccionada.sucursal);
-    $("#mEditarTelefono").val(sucursalSeleccionada.telefono);
-    $("#mEditarDireccion").val(sucursalSeleccionada.direccion);
-    $("#mEditarCiudad").val(sucursalSeleccionada.ciudad);
-    $("#mEditarEstado").val(sucursalSeleccionada.estado);
+    $("#mEditarNombre").val(sucursal.sucursal);
+    $("#mEditarTelefono").val(sucursal.telefono);
+    $("#mEditarDireccion").val(sucursal.direccion);
+    $("#mEditarCiudad").val(sucursal.ciudad);
+    $("#mEditarEstado").val(sucursal.estado).change();
 }
 
 cargarSucursales()

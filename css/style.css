@@ -75,6 +75,12 @@ table tr.filaInactiva > td:first-child input {
     cursor: not-allowed !important;
 }
 
+.input-group-append .input-group-text,
+.input-group-append .btn {
+    border-top-right-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+}
+
 /* .daterangepicker > * {
     z-index: 2001 !important;
 } */

@@ -88,7 +88,7 @@ function cargarSucursales() {
         } else {
             notificacionCentro({
                 type: 'error',
-                title: sucursales.error.message,
+                title: 'Ocurrió un error al cargar sucursales.',
                 text: 'Inténtelo de nuevo, por favor.'
             })
         }
@@ -96,7 +96,7 @@ function cargarSucursales() {
     .fail(function(){
         notificacionCentro({
             type: 'error',
-            title: 'Ocurrió un error en la conexión.',
+            title: 'Ocurrió un error al cargar sucursales.',
             text: 'Inténtelo de nuevo, por favor.'
         })
     })

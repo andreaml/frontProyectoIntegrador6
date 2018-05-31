@@ -26,6 +26,10 @@ const notificacionCentro = swal.mixin({
     buttonsStyling: false,
 });
   
+//Se agrega función 'isValid' a librería de jQuery.
+$.fn.isValid = function(){
+    return this[0].checkValidity()
+}
 
 function habilitarElemento(selectorElemento, boolHabilitar) {
     $(selectorElemento).prop('disabled', !boolHabilitar);

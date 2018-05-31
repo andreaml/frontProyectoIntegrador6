@@ -113,27 +113,35 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                   <form>
+                   <form class="needs-validation" novalidate>
                          <div class="form-group">
-                            <label for="modalAgregarNombre">Nombre</label>
-                            <input type="text" name="sucursal" id="sucursal" placeholder="Nombre de sucursal" class="form-control">
+                            <label for="modalAgregarNombre">* Nombre</label>
+                            <input type="text" name="sucursal" id="sucursal" placeholder="Nombre de sucursal" class="form-control" required minlength="5">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <label for="modalAgregarTelefono">* Teléfono</label>
+                        <div class="input-group mb-3">
+                            <input type="tel" name="telefono" id="telefono" placeholder="Teléfono de sucursal" class="form-control" required pattern="[0-9]{10}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" data-toggle="popover" data-placement="top" data-content="Ejemplo: 3124445522">
+                                    <i class="fa fa-question-circle"></i>
+                                </button>
+                              </div>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
-                            <label for="modalAgregarTelefono">Teléfono</label>
-                             <input type="text" name="telefono" id="telefono" placeholder="Teléfono de sucursal" class="form-control">
+                            <label for="modalAgregarDireccion">* Dirección</label>
+                            <textarea name="direccion" id="direccion" cols="30" rows="3" placeholder="Dirección de sucursal" class="form-control" required></textarea>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
-                            <label for="modalAgregarDireccion">Dirección</label>
-                            <textarea name="direccion" id="direccion" cols="30" rows="3" placeholder="Dirección de sucursal" class="form-control"></textarea>
+                            <label for="modalAgregarCiudad">* Ciudad</label>
+                            <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad de sucursal" class="form-control" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
-                            <label for="modalAgregarCiudad">Ciudad</label>
-                            <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad de sucursal" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Estado">Estado</label>
-                            <select name="estado" id="estado" class="form-control">
+                            <label for="Estado">* Estado</label>
+                            <select name="estado" id="estado" class="form-control" required>
                                 <option value="">Selecciona un estado</option>                    
                                 <option value="Aguascalientes">Aguascalientes</option>                    
                                 <option value="Baja California">Baja California</option>                    
@@ -168,11 +176,12 @@
                                 <option value="Yucatán">Yucatán</option>                    
                                 <option value="Zacatecas">Zacatecas</option>                    
                             </select>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary">Agregar</button>
+                    <button id="btnModalAgregarSucursal" type="button" class="btn btn-secondary">Agregar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
@@ -190,26 +199,30 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form class="needs-validation" novalidate>
                          <div class="form-group">
-                            <label for="modalEditarNombre">Nombre</label>
-                            <input type="text" name="nombre" id="mEditarNombre" placeholder="Nombre de sucursal" class="form-control">
+                            <label for="modalEditarNombre">* Nombre</label>
+                            <input type="text" name="sucursal" id="mEditarNombre" placeholder="Nombre de sucursal" class="form-control">
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
-                            <label for="modalEditarTelefono">Teléfono</label>
-                             <input type="text" name="telefono" id="mEditarTelefono" placeholder="Teléfono de sucursal" class="form-control">
+                            <label for="modalEditarTelefono">* Teléfono</label>
+                            <input type="text" name="telefono" id="mEditarTelefono" placeholder="Teléfono de sucursal" class="form-control">
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
-                            <label for="modalEditarDireccion">Dirección</label>
+                            <label for="modalEditarDireccion">* Dirección</label>
                             <textarea name="direccion" id="mEditarDireccion" cols="30" rows="3" placeholder="Dirección de sucursal" class="form-control"></textarea>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
-                            <label for="modalEditarCiudad">Ciudad</label>
+                            <label for="modalEditarCiudad">* Ciudad</label>
                             <input type="text" name="ciudad" id="mEditarCiudad" placeholder="Ciudad de sucursal" class="form-control">
+                            <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="EditarEstado">Estado</label>
+                            <label for="EditarEstado">* Estado</label>
                             <select name="estado" id="mEditarEstado" class="form-control">
                                 <option value="">Selecciona un estado</option>                    
                                 <option value="Aguascalientes">Aguascalientes</option>                    
@@ -245,11 +258,12 @@
                                 <option value="Yucatán">Yucatán</option>                    
                                 <option value="Zacatecas">Zacatecas</option>                    
                             </select>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary">Editar</button>
+                    <button id="btnModalEditarSucursal" type="button" class="btn btn-secondary" data-id-sucursal="">Editar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
@@ -285,5 +299,6 @@
     <script type="text/javascript" src="js/general/datatables.min.js"></script>
     <script src="js/general/sweetAlert.min.js"></script>
     <script src="js/funcionesGenerales.js"></script>
+    <script src="js/parseoErroresMysql.js"></script>
     <script src="js/gerenteGeneral/sucursales.js"></script>
 </html>

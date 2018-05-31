@@ -6,6 +6,17 @@ body, * {
 body {
     background-color: #f3f5f6;
 }
+
+a {
+    -webkit-transition: font-weight ease 0.5s, color ease 0.5s;
+    transition: font-weight ease 0.5s, color ease 0.5s;
+}
+
+a:hover {
+    text-decoration: none;
+    font-weight: 400;
+}
+
 .nav-logo {
     width: 40px;
     height: auto;

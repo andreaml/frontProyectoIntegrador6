@@ -381,10 +381,14 @@ function editarSucursal(parametros, idSucursal) {
     })
 }
 
+function init() {
+    cargarSucursales();
+    clickDeshabilitarSucursales();
+    clickModalDeshabilitarSucursales();
+    clickModalAgregarSucursal();
+    clickModalEditarSucursal();
+}
 
-
-cargarSucursales();
-clickDeshabilitarSucursales();
-clickModalDeshabilitarSucursales();
-clickModalAgregarSucursal();
-clickModalEditarSucursal();
+$(document).ready(function() {
+    init();
+});

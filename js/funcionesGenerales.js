@@ -5,6 +5,7 @@ var configuracionLeyendasTabla = {
     zeroRecords: "Lo sentimos, no se encontraron resultados",
     info: "Mostrando _PAGE_ de _PAGES_ resultados",
     infoEmpty: "No hay resultados disponibles",
+    infoFiltered: "(filtrado de un total de _MAX_ elementos)",
     paginate: {
         first:    'Primera',
         previous: '« Anterior',

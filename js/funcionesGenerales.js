@@ -25,7 +25,7 @@ const notificacionCentro = swal.mixin({
     cancelButtonClass: 'btn btn-danger',
     buttonsStyling: false,
 });
-  
+
 //Se agrega función 'isValid' a librería de jQuery.
 $.fn.isValid = function(){
     return this[0].checkValidity()

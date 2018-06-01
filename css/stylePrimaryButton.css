@@ -1,0 +1,23 @@
+.btn-primary,
+.btn-primary.disabled, .btn-primary:disabled,
+.page-item.active .page-link {
+    background-color: #01438a;
+    border-color: #01438a;
+}
+
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled):active, 
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: #0053ac;
+    border-color: #0053ac;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}

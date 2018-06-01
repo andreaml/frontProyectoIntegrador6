@@ -52,8 +52,8 @@ var configuracionBotonesEditarTabla = {
     orderable: false,
     className: 'dt-body-center',
     render: function (data, type, sucursal){
-            return `<a href="#" class="text-secondary btnEditarSucursal" data-toggle="modal" data-target="#modalEditar" data-sucursal="${JSON.stringify(sucursal)}">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
+            return `<a href="#" class="text-secondary btnEditarSucursal" data-toggle="modal" data-target="#modalEditar" data-sucursal="${encodeURIComponent(JSON.stringify(sucursal))}">
+                    Editar <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>`
     }
     
@@ -71,13 +71,13 @@ var idTabla = "tablaSucursales";
 var elementosSeleccionados = {}
 var dataTable;
 
-function valoresFormularioAgregar(idModalFormulario) {
+function valoresFormularioSucursal(idModalFormulario) {
     let paramsFormulario = $(`#${idModalFormulario} form`).serialize();
     let paramsManuales = {
         idSucursalPadre: idSucursalPadre,
         tipo: 1
     }
-    return `${paramsFormulario}&${$.params(paramsManuales)}`
+    return `${paramsFormulario}&${$.param(paramsManuales)}`
 }
 
 function cargarSucursales() {
@@ -88,7 +88,7 @@ function cargarSucursales() {
         } else {
             notificacionCentro({
                 type: 'error',
-                title: sucursales.error.message,
+                title: 'Ocurrió un error al cargar sucursales.',
                 text: 'Inténtelo de nuevo, por favor.'
             })
         }
@@ -96,7 +96,7 @@ function cargarSucursales() {
     .fail(function(){
         notificacionCentro({
             type: 'error',
-            title: 'Ocurrió un error en la conexión.',
+            title: 'Ocurrió un error al cargar sucursales.',
             text: 'Inténtelo de nuevo, por favor.'
         })
     })
@@ -239,15 +239,15 @@ function clickModalDeshabilitarSucursales() {
 function deshabilitarSucursales(listaIdSucursales) {
     $.ajax({
         crossDomain: true,
-        method: 'DELETE',
         data: {
             idArray: listaIdSucursales
         },
-        url: `${sessionStorage.urlApi}sucursales/eliminar/`,
         headers: {
             'content-type': 'application/x-www-form-urlencoded',
             'accept': 'application/json'
         },
+        method: 'DELETE',
+        url: `${sessionStorage.urlApi}sucursales/eliminar/`,
     })
     .done(function(respuesta) {
         if (respuesta.status) {
@@ -272,23 +272,123 @@ function deshabilitarSucursales(listaIdSucursales) {
     })
 }
 
+function clickModalAgregarSucursal() {
+    $("#btnModalAgregarSucursal").on('click', function() {
+        let formulario = $("#modalAgregar form");
+        let formularioValido = formulario.isValid();
+        if (formularioValido) {
+            let parametros = valoresFormularioSucursal('modalAgregar');
+            agregarSucursal(parametros);
+        } else {
+            let inputsFormulario = formulario.find('.form-control');
+            $.each(inputsFormulario, function(llave, input) {
+                validarInput(input);
+            });
+        }
+    });
+}
+
+function agregarSucursal(parametros) {
+    $.post(`${sessionStorage.urlApi}sucursales/nuevo`, parametros)
+    .done(function(respuesta) {
+        if (respuesta.status) {
+            $("#modalAgregar").modal('hide');
+            cargarSucursales();
+            notificacionEsquina({
+                type: 'success',
+                title: 'Sucursal añadida con éxito.'
+            });
+        } else {
+            notificacionEsquina({
+                type: 'error',
+                title: mensajeError(respuesta.error.code, 'Sucursal')
+            });
+        }
+    })
+    .fail(function(error) {
+        notificacionEsquina({
+            type: 'error',
+            title: 'Error en la conexión. Inténtelo de nuevo por favor.'
+        });
+    })
+}
+
 function clickEditarSucursal() {
     $(`#${idTabla} tbody`).on( 'click', 'a', function () {
-        console.log("entraa")
-        asociarInformacionAModalEditar($(this).data('sucursal'));
+        let sucursalCodificada = $(this).data('sucursal');
+        let sucursal = JSON.parse(decodeURIComponent(sucursalCodificada));
+        asociarInformacionAModalEditar(sucursal);
     });
 }
 
 function asociarInformacionAModalEditar(sucursal) {
-    let sucursalSeleccionada = JSON.parse(sucursal);
-    console.log(sucursalSeleccionada)
-    $("#mEditarNombre").val(sucursalSeleccionada.sucursal);
-    $("#mEditarTelefono").val(sucursalSeleccionada.telefono);
-    $("#mEditarDireccion").val(sucursalSeleccionada.direccion);
-    $("#mEditarCiudad").val(sucursalSeleccionada.ciudad);
-    $("#mEditarEstado").val(sucursalSeleccionada.estado);
+    $("#mEditarNombre").val(sucursal.sucursal);
+    $("#mEditarTelefono").val(sucursal.telefono);
+    $("#mEditarDireccion").val(sucursal.direccion);
+    $("#mEditarCiudad").val(sucursal.ciudad);
+    $("#mEditarEstado").val(sucursal.estado).change();
+    $("#btnModalEditarSucursal").attr('data-id-sucursal', sucursal.idSucursal)
 }
 
-cargarSucursales()
-clickDeshabilitarSucursales()
-clickModalDeshabilitarSucursales()
+function clickModalEditarSucursal() {
+    $("#btnModalEditarSucursal").on('click', function() {
+        let formulario = $("#modalEditar form");
+        let formularioValido = formulario.isValid();
+        if (formularioValido) {
+            let parametros = valoresFormularioSucursal("modalEditar");
+            let idSucursal = $(this).attr('data-id-sucursal');
+            editarSucursal(parametros, idSucursal);
+        } else {
+            let inputsFormulario = formulario.find('.form-control');
+            $.each(inputsFormulario, function(llave, input) {
+                validarInput(input);
+            });
+        }
+    });
+}
+
+function editarSucursal(parametros, idSucursal) {
+    $.ajax({
+        crossDomain: true,
+        data: parametros,
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'accept': 'application/json'
+        },
+        method: 'PUT',
+        url: `${sessionStorage.urlApi}sucursales/editar/${idSucursal}`, 
+    })
+    .done(function(respuesta) {
+        if (respuesta.status) {
+            $("#modalEditar").modal('hide');
+            cargarSucursales();
+            notificacionEsquina({
+                type: 'success',
+                title: 'Sucursal modificada con éxito.'
+            });
+        } else {
+            notificacionEsquina({
+                type: 'error',
+                title: mensajeError(respuesta.error.code, 'Sucursal')
+            });
+        }
+    })
+    .fail(function(error) {
+        notificacionEsquina({
+            type: 'error',
+            title: 'Error en la conexión. Inténtelo de nuevo por favor.'
+        });
+    })
+}
+
+function init() {
+    cargarSucursales();
+    clickDeshabilitarSucursales();
+    clickModalDeshabilitarSucursales();
+    clickModalAgregarSucursal();
+    clickModalEditarSucursal();
+}
+
+$(document).ready(function() {
+    init();
+});

@@ -6,6 +6,17 @@ body, * {
 body {
     background-color: #f3f5f6;
 }
+
+a {
+    -webkit-transition: font-weight ease 0.5s, color ease 0.5s;
+    transition: font-weight ease 0.5s, color ease 0.5s;
+}
+
+a:hover {
+    text-decoration: none;
+    font-weight: 400;
+}
+
 .nav-logo {
     width: 40px;
     height: auto;
@@ -62,6 +73,12 @@ table tr.filaInactiva,
 table tr.filaInactiva > td:first-child input {
     color: #6c757d !important;
     cursor: not-allowed !important;
+}
+
+.input-group-append .input-group-text,
+.input-group-append .btn {
+    border-top-right-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
 }
 
 /* .daterangepicker > * {

@@ -81,6 +81,10 @@ table tr.filaInactiva > td:first-child input {
     border-bottom-right-radius: .25rem !important;
 }
 
+#caracteristicasModelo table th {
+    font-weight: 500;
+}
+
 /* .daterangepicker > * {
     z-index: 2001 !important;
 } */

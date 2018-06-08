@@ -5,8 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Volkswagen Vendedor</title>
-	<!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet"> -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" rel="stylesheet">
 	<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/daterangepicker.css">
@@ -81,11 +79,8 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col form-group">
-								<label for="version">Modelo</label>
-								<select name="version" id="version" class="form-control">
-									<option value="">CLI</option>
-									<option value="">CDI</option>
-								</select>
+								<label for="modelo">Modelo</label>
+								<select name="idModelo" id="modelo" class="form-control"></select>
 							</div>
 							<div class="col form-group">
 								<label for="anio">Año</label>
@@ -97,13 +92,11 @@
 							<div class="col form-group">
 								<label for="version">Versión</label>
 								<select name="version" id="version" class="form-control">
-									<option value="">CLI</option>
-									<option value="">CDI</option>
 								</select>
 							</div>
 						</div>
-						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
-							Ver vehículo
+						<button class="btn btn-primary float-right" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
+							Ver modelo
 						</button>
 					</div>
 				</div>
@@ -117,67 +110,67 @@
 						<div class="d-flex">
 							<div class="col-12 col-md-7 px-0">
 								<h5>Características</h5>
-								<table class="table table-striped">
+								<table class="table table-striped" id="tablaCaracteristicasModelo">
 									<tbody>
 										<tr>
 											<th>Precio</th>
-											<td>$123,123.00</td>
+											<td>$<span class="precio"></span></td>
 										</tr>
 										<tr>
 											<th>Categoría</th>
-											<td>123</td>
+											<td><span class="categoria"></span></td>
 										</tr>
 										<tr>
 											<th>Modelo</th>
-											<td>123</td>
+											<td><span class="modelo"></span></td>
 										</tr>
 										<tr>
 											<th>Año</th>
-											<td>2017</td>
+											<td><span class="anio"></span></td>
 										</tr>
 										<tr>
 											<th>Versión</th>
-											<td>CLI</td>
+											<td><span class="version"></span></td>
 										</tr>
 										<tr>
 											<th>Aire acondicionado</th>
-											<td>Sí</td>
+											<td><span class="aireAcondicionado"></span></td>
 										</tr>
 										<tr>
 											<th>Bolsas de aire</th>
-											<td>Sí</td>
+											<td><span class="bolsasAire"></span></td>
 										</tr>
 										<tr>
 											<th>Tipo de freno</th>
-											<td>123</td>
+											<td><span class="tipoFreno"></span></td>
 										</tr>
 										<tr>
 											<th>Cilindrada</th>
-											<td>2017</td>
+											<td><span class="cilindrada"></span></td>
 										</tr>
 										<tr>
 											<th>Equipamiento</th>
-											<td>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </td>
+											<td><span class="equipamiento"></span></td>
 										</tr>
 										<tr>
 											<th>Número de puertas</th>
-											<td>5</td>
+											<td><span class="numPuertas"></span></td>
 										</tr>
 										<tr>
 											<th>Número de pasajeros</th>
-											<td>Sí</td>
+											<td><span class="numPasajeros"></span></td>
 										</tr>
 										<tr>
 											<th>Tipo de combustible</th>
-											<td>Magna</td>
+											<td><span class="tipoCombustible"></span></td>
 										</tr>
 										<tr>
 											<th>Potencia</th>
-											<td>123/456</td>
+											<td><span class="potencia"></span></td>
 										</tr>
 										<tr>
-											<th>Tipo de combustible</th>
-											<td>Magna</td>
+											<th>Tipo de transmisión</th>
+											<td><span class="tipoTransmision"></span></td>
 										</tr>
 									</tbody>
 								</table>
@@ -205,10 +198,30 @@
 			</div>
 		</div>
 	</section>
-
+	<!-- Modal galeria inicia -->
+    <div class="modal fade" id="modalGaleria" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Galería</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div> 
 	<script src="js/general/jquery-3.3.1.min.js"></script>
     <script src="js/general/popper.min.js"></script>
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script>
+		var idCategoria = 1;
+	</script>
+	<script src="js/general/sweetAlert.min.js"></script>
+    <script src="js/funcionesGenerales.js"></script>
     <script src="js/vendedor/catalogo.js"></script>
 </body>
 </html>

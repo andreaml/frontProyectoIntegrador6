@@ -55,4 +55,13 @@ $(function () {
     $('[data-toggle="popover"]').popover()
 })
 
+function cargarValoresSelect(idSelect, listaOpciones) {
+    $(`#${idSelect}`).empty().attr('disabled', false);
+    $.each(listaOpciones, function(key, value) {
+        let opcion = new Option(value.texto, value.valor);
+        $(`#${idSelect}`).append(opcion);
+    });
+    $(`#${idSelect}`).trigger('change');
+}
+
 vincularEventoKeyupConInput();

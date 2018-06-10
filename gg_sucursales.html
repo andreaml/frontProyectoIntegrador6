@@ -203,12 +203,12 @@
                     <form class="needs-validation" novalidate>
                          <div class="form-group">
                             <label for="mEditarNombre">* Nombre</label>
-                            <input type="text" name="sucursal" id="mEditarNombre" placeholder="Nombre de sucursal" class="form-control" minlength="5">
+                            <input type="text" name="sucursal" id="mEditarNombre" placeholder="Nombre de sucursal" class="form-control" required minlength="5">
                             <div class="invalid-feedback"></div>
                         </div>
                         <label for="mEditarTelefono">* Teléfono</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="telefono" id="mEditarTelefono" placeholder="Teléfono de sucursal" class="form-control">
+                            <input type="text" name="telefono" id="mEditarTelefono" placeholder="Teléfono de sucursal" class="form-control"required pattern="[0-9]{10}">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" data-toggle="popover" data-placement="top" data-content="Ejemplo: 3124445522">
                                     <i class="fa fa-question-circle"></i>
@@ -218,18 +218,18 @@
                         </div>
                         <div class="form-group">
                             <label for="mEditarDireccion">* Dirección</label>
-                            <textarea name="direccion" id="mEditarDireccion" cols="30" rows="3" placeholder="Dirección de sucursal" class="form-control" minlength="15"></textarea>
+                            <textarea name="direccion" id="mEditarDireccion" cols="30" rows="3" placeholder="Dirección de sucursal" class="form-control" required minlength="15"></textarea>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
                             <label for="mEditarCiudad">* Ciudad</label>
-                            <input type="text" name="ciudad" id="mEditarCiudad" placeholder="Ciudad de sucursal" class="form-control" minlength="5">
+                            <input type="text" name="ciudad" id="mEditarCiudad" placeholder="Ciudad de sucursal" class="form-control" required minlength="5">
                             <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="mEditarEstado">* Estado</label>
-                            <select name="estado" id="mEditarEstado" class="form-control">
+                            <select name="estado" id="mEditarEstado" class="form-control" required>
                                 <option value="">Selecciona un estado</option>                    
                                 <option value="Aguascalientes">Aguascalientes</option>                    
                                 <option value="Baja California">Baja California</option>                    

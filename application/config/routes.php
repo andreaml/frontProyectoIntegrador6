@@ -52,3 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+
+$route['gerenteGeneral/sucursales']         = 'general_managers/Branches';
+$route['gerenteGeneral/catalogo']           = 'general_managers/Cars';
+$route['gerenteGeneral/catalogo/(:any)']    = 'general_managers/Cars/byCategory/$1';

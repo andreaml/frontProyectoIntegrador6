@@ -57,6 +57,7 @@ table.dataTable {
 
 table tr.selected {
     background-color: #0055b4b3 !important;
+    color: white !important;
 }
 
 table tr.selected a,
@@ -85,6 +86,16 @@ div.dataTables_wrapper div.dataTables_filter label {
     right: 0;
     width: 100%;
 }
+
+div.dataTables_wrapper div.dataTables_length label {
+    display: inline-flex;
+}    
+
+div.dataTables_wrapper div.dataTables_length select {
+    margin: 0 10px;
+    position: relative;
+    top: -3px;
+}  
 
 div.dataTables_wrapper div.dataTables_filter input {
     display: block;

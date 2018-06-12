@@ -1,13 +1,10 @@
 var modelos;
+var idModeloActual;
 var colores;
 var imagenes = {};
 var configuracionColumnasTabla = [
     {
-        // Columna para checkbox
-        data: '',
-    },
-    {
-        title: 'ID Modelo',   
+        title: 'ID',   
         data: 'idModeloVehiculo',
     },
     {
@@ -27,15 +24,6 @@ var configuracionColumnasTabla = [
         data: ''
     }
 ]
-var configuracionCheckboxesTabla = {
-    targets: [0],
-    searchable: false,
-    orderable: false,
-    className: 'dt-body-center',
-    render: function (data, type, modelo){
-        return `<input type="checkbox" name="idModeloVehiculo" value="${modelo.idModeloVehiculo}">`;
-    }
-}
 var configuracionBotonesEditarTabla = {
     targets: [-1],
     searchable: false,
@@ -56,9 +44,10 @@ var elementosSeleccionados = {}
 var dataTable;
 
 function clickVerModelo() {
-    $(".btnVerModelo").unbind("click").click(function() {
+    $(`#${idTabla} tbody`).on( 'click', '.btnVerModelo', function () {
         $(this).closest(".div-modelo").siblings("#caracteristicasModelo").fadeIn();
         let idModelo = $(this).attr("data-id-modelo");
+        $("#btnVincularColorModelo").attr("data-id-modelo", idModelo)
         cargarCaracteristicasModelo(idModelo);
         cargarColoresModelo(idModelo);
     })
@@ -71,10 +60,12 @@ function cargarCaracteristicasModelo(idModelo) {
         }
     });
     modeloSeleccionado = modeloSeleccionado[0];
+    $(".nombre-modelo").text(modeloSeleccionado.modelo)
     $.each(modeloSeleccionado, function(key, caracteristica) {
         $(`table .${key}`).text(caracteristica)
     })
     $("#btnEditar").attr("data-id-modelo", idModelo)
+    idModeloActual = null
 }
 
 function cargarColoresModelo(idModelo) {
@@ -94,26 +85,34 @@ function cargarColoresModelo(idModelo) {
 function mostrarColoresPorModelo(idModelo, coloresModelo) {
     let iconoCargando = "<li class='text-center'><span class='fa fa-spinner fa-spin fa-3x fa-fw'></span>"
     $("#coloresDisponibles ul").html(iconoCargando)
+    $("#modalGestionarColoresModelo table tbody").html('')
     coloresModelo.map(function(colorModelo) {
         mostrarNombresColoresModelo(colorModelo);
     })
+    $(`#selectColores`).trigger('change');    
 }
 
 function mostrarNombresColoresModelo(colorModelo) {
     colores.map(function(color) {
         if (colorModelo.idColor === color.idColor) { 
             cargarUrlImagenesColorModelo(colorModelo.idModeloVehiculo, colorModelo.idColor, (arrayImagenes) => {
-                let indexImagenes = `${colorModelo.idModeloVehiculo}${colorModelo.idColor}`
-                imagenes[indexImagenes] = arrayImagenes
-                let li = `<li>${color.color}<li>`
-                let urlImagen = arrayImagenes.prefijoUrl + arrayImagenes.imagenes[0]['imagen']
-                cargarImagenColorModelo(li, urlImagen, indexImagenes)
+                if (arrayImagenes) {
+                    let indexImagenes = `${colorModelo.idModeloVehiculo}${colorModelo.idColor}`
+                    imagenes[indexImagenes] = arrayImagenes
+                    let li = `<li>${color.color}<li>`
+                    let urlImagen = arrayImagenes.prefijoUrl + arrayImagenes.imagenes[0]['imagen']
+                    cargarImagenColorModelo(li, urlImagen, indexImagenes)
+                } else {
+                    cargarNombreColorModelo(color)  
+                }
             });
+            cargarColoresModeloModalGestionarColores(color, colorModelo.idModeloVehiculo)
         }
     })
+    
 }
 
-function cargarImagenColorModelo(li, urlImagen, indexImagenes) {
+function cargarImagenColorModelo(li, urlImagen = '', indexImagenes) {
     $("<img/>")
     .on('load', function() { 
         if ($("#coloresDisponibles ul .fa-spinner").length)
@@ -128,6 +127,13 @@ function cargarImagenColorModelo(li, urlImagen, indexImagenes) {
     .attr("src", urlImagen)
     .attr("id", indexImagenes)
     .attr("class", "img-fluid");
+}
+
+function cargarNombreColorModelo(color) {
+    if ($("#coloresDisponibles ul .fa-spinner").length)
+        $("#coloresDisponibles ul").html('');
+    let li = `<li>${color.color}<li>`
+    $("#coloresDisponibles ul").append(li)
 }
 
 function cargarModelosPorCategoria(idCategoria) {
@@ -155,6 +161,9 @@ function cargarModelosPorCategoria(idCategoria) {
 
 function mostrarModelos(arrayModelos) {
     if (dataTable) {
+        if (idModeloActual) {
+            cargarCaracteristicasModelo(idModeloActual)            
+        }
         actualizarTabla(arrayModelos);
     } else {
         cargarTabla(arrayModelos);
@@ -197,10 +206,9 @@ function desmarcarCheckboxesTabla(dataTable) {
 }
 
 function cargarTabla(arrayDatos) {
-    console.log(arrayDatos)
     dataTable = $(`#${idTabla}`).DataTable({
         columns: configuracionColumnasTabla,
-        columnDefs: [configuracionCheckboxesTabla, configuracionBotonesEditarTabla],
+        columnDefs: [configuracionBotonesEditarTabla],
         data: arrayDatos,
         // initComplete: function(settings) {
         //     actualizarSeleccionElementosTabla(settings.oInstance.api())
@@ -374,7 +382,8 @@ function editarModelo(parametros, idModelo) {
     .done(function(respuesta) {
         if (respuesta.status) {
             $("#modalEditar").modal('hide');
-            cargarModelosPorCategoria(idCategoria);
+            idModeloActual = idModelo
+            cargarModelosPorCategoria(idCategoria)
             notificacionEsquina({
                 type: 'success',
                 title: 'Modelo modificado con éxito.'
@@ -394,12 +403,123 @@ function editarModelo(parametros, idModelo) {
     })
 }
 
+function cargarColoresModeloModalGestionarColores(colorModelo, idModelo) {
+    let tdColores = `
+    <tr data-id-color=${colorModelo.idColor}>
+    <td>${colorModelo.color}
+    <td>
+        <button type="button" data-id-modelo="${idModelo}" data-id-color="${colorModelo.idColor}" class="btn btn-light text-danger borrarColorModelo">
+            <span class="fa fa-trash"></span>
+        </button>
+    `
+    $("#modalGestionarColoresModelo table tbody").append(tdColores)
+    clickBorrarColorModelo()
+}
+
+function clickBorrarColorModelo() {
+    $(".borrarColorModelo").unbind("click").on("click", function() {
+        let idModeloVehiculo = $(this).attr("data-id-modelo")
+        let idColor = $(this).attr("data-id-color")
+        borrarColorModelo(idModeloVehiculo, idColor)
+    })
+}
+
+function borrarColorModelo(idModeloVehiculo, idColor) {
+    $.ajax({
+        crossDomain: true,
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'accept': 'application/json'
+        },
+        method: 'DELETE',
+        url: `${sessionStorage.urlApi}colores/eliminarPorModelo/${idModeloVehiculo}/${idColor}`, 
+    })
+    .done(function(respuesta) {
+        if (respuesta.status) {
+            cargarColoresModelo(idModeloVehiculo);
+            notificacionEsquina({
+                type: 'success',
+                title: 'Color desvinculado con éxito.'
+            });
+        } else {
+            notificacionEsquina({
+                type: 'error',
+                title: mensajeError(respuesta.error.code, 'Color')
+            });
+        }
+    })
+    .fail(function(error) {
+        notificacionEsquina({
+            type: 'error',
+            title: 'Error en la conexión. Inténtelo de nuevo por favor.'
+        });
+    })
+}
+
+function cargarColoresSelectModalGestionarColoresModelo() {
+    let listaColores = $.map(colores, function(color) {
+        return { texto: `${color.color}`, valor: color.idColor };
+    });
+    cargarValoresSelect("selectColores", listaColores)
+}
+
+function detectarCambioSelectColores() {
+    $("#selectColores").on("change", function() {
+        let idColor = $(this).val()
+        let colorVinculado = $(`#coloresVinculados tr[data-id-color="${idColor}"]`)
+        if (colorVinculado.length) {
+            $("#btnVincularColorModelo").attr("disabled", true)
+        } else {
+            $("#btnVincularColorModelo").attr("disabled", false)
+        }
+    })
+}
+
+function clickVincularColorModelo() {
+    $("#btnVincularColorModelo").on("click", function() {
+        let idModeloVehiculo = $(this).attr("data-id-modelo")
+        let idColor = $("#selectColores").val()
+        let parametros = {
+            idModeloVehiculo: idModeloVehiculo,
+            idColor: idColor
+        }
+        vincularColorModelo(parametros)
+    })
+}
+
+function vincularColorModelo(parametros) {
+    $.post(`${sessionStorage.urlApi}colores/nuevaRelacionModeloColor`, parametros)
+    .done(function(respuesta) {
+        if (respuesta.status) {
+            $("#btnVincularColorModelo").attr("disabled", true)
+            cargarColoresModelo(respuesta.data.idModeloVehiculo);
+            notificacionEsquina({
+                type: 'success',
+                title: 'Color vinculado con éxito.'
+            });
+        } else {
+            notificacionEsquina({
+                type: 'error',
+                title: mensajeError(respuesta.error.code, 'Color')
+            });
+        }
+    })
+    .fail(function(error) {
+        notificacionEsquina({
+            type: 'error',
+            title: 'Error en la conexión. Inténtelo de nuevo por favor.'
+        });
+    })
+}
+
 function init() {
-    // clickVerModelo();
+    detectarCambioSelectColores()
     cargarModelosPorCategoria(idCategoria)
     cargarColores(function(arrayColores) {
         if (arrayColores) {
             colores = arrayColores
+            cargarColoresSelectModalGestionarColoresModelo()
+            clickVincularColorModelo()
         } else {
             $("#coloresDisponibles ul").html('Sin colores disponibles')            
         }

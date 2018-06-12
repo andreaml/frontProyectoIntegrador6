@@ -3,7 +3,6 @@
 <section class="container-fluid">
     <div class="col-12">
         <h2 class="section-title">Gestión de Catálogo - <span class="nombreCategoria"><?= $category ?></span></h2>
-        
         <div class="row">
             <div class="col-12 col-lg-6 mb-3 div-modelo">
                 <div class="card border-secondary">
@@ -21,9 +20,6 @@
                             <table id="tablaModelos" class="table table-striped display select compact" style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>
-                                            <input name="select_all" value="1" id="example-select-all" type="checkbox">
-                                        </th>
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -39,7 +35,7 @@
             <div class="collapse col-12 col-lg-6 mb-4" id="caracteristicasModelo">
                     <div class="card border-secondary">
                         <div class="card-header bg-secondary text-white d-flex justify-content-between">
-                            <h4 class="nombre-modelo m-0">Vento</h4>
+                            <h4 class="nombre-modelo m-0"></h4>
                             <div class="btn-group dropleft">
                                 <button type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="fa fa-ellipsis-v"></span>
@@ -140,7 +136,7 @@
                                                 <span class="fa fa-ellipsis-v"></span>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <button id="btnEditar" class="dropdown-item" type="button" data-toggle="modal" data-target="#modalEditar">
+                                                <button id="btnEditar" class="dropdown-item" type="button" data-toggle="modal" data-target="#modalGestionarColoresModelo">
                                                     <i class="fa fa-th-large" aria-hidden="true"></i>
                                                     Gestionar colores de modelo
                                                 </button>
@@ -407,26 +403,28 @@
                         <div class="form-row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="selectColores">Colores disponibles</label>
-                                <select name="color" id="selectColores" class="form-control"></select>
-                                <div class="invalid-feedback"></div>
+                                <select name="color" id="selectColores" class="form-control mb-3"></select>
+                                <button type="button" class="btn btn-primary float-right" id="btnVincularColorModelo">
+                                    <i class="fa fa-plus-circle"></i>
+                                    Vincular color
+                                </button>
                             </div>
-                            <div class="form-group col-4 col-sm-3">
-                                <label for="modalGestionarColoresModeloAnio">Año</label>
-                                <input type="text" name="anio" id="modalGestionarColoresModeloAnio" placeholder="2018" class="form-control" maxlength="4" pattern="[0-9]{4}" required>
-                                <div class="invalid-feedback"></div>
+                            <div class="form-group col-12 col-md-6">
+                                <label>Colores vinculados</label>
+                                <table class="table table-sm" id="coloresVinculados">
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnModalGestionarColoresModelo" type="button" class="btn btn-primary">Agregar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 <!-- Modal gestionar colores por modelo termina -->
 <script>
-    
     var idCategoria = <?= $idCategory ?>;
 </script>

@@ -16,3 +16,7 @@ ul {
 .dropdown-item:focus, .dropdown-item:hover {
 	background-color: #eee;
 }
+
+table td {
+    vertical-align: middle !important;
+}

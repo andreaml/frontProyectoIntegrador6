@@ -1,4 +1,5 @@
-sessionStorage.setItem('urlApi', 'http://localhost/volkswagen/');
+sessionStorage.setItem('urlApi', 'http://sistema-volkswagen.ddns.net/volkswagen/');
+// sessionStorage.setItem('urlApi', 'http://127.0.0.1/volkswagen/');
 var configuracionLeyendasTabla = {
     lengthMenu: "Mostrar _MENU_ resultados",
     search: "Buscar:",

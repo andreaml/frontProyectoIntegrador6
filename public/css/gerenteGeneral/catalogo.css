@@ -1,0 +1,18 @@
+ul {
+    list-style-type: none;
+    padding-left: 1rem;
+}
+#caracteristicasModelo .card-header .btn {
+    background-color: #676f77;
+    border-radius: calc(.25rem - 1px);
+    height: 29px;
+    line-height: 29px;
+    padding: 2px 10px;
+}
+#caracteristicasModelo .card-header .btn span.fa-ellipsis-v {
+    font-size: 1.5rem;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+	background-color: #eee;
+}

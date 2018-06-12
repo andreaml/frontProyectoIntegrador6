@@ -10,7 +10,7 @@ class MY_Controller extends CI_Controller {
       'bootstrap/bootstrap.min.css',
       'font-awesome-4.7.0/css/font-awesome.min.css',
       'datatables.min.css',
-      'dateragepicker.css',
+      'daterangepicker.css',
       'style.css',
       'stylePrimaryButton.css'
     ]);

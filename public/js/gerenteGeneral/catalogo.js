@@ -97,10 +97,10 @@ function mostrarNombresColoresModelo(colorModelo) {
         if (colorModelo.idColor === color.idColor) { 
             cargarUrlImagenesColorModelo(colorModelo.idModeloVehiculo, colorModelo.idColor, (arrayImagenes) => {
                 if (arrayImagenes) {
-                    let indexImagenes = `${sessionStorage.urlApi}public/${colorModelo.idColor}`
+                    let indexImagenes = `${colorModelo.idModeloVehiculo}${colorModelo.idColor}`
                     imagenes[indexImagenes] = arrayImagenes
                     let li = `<li>${color.color}<li>`
-                    let urlImagen = arrayImagenes.prefijoUrl + arrayImagenes.imagenes[0]['imagen']
+                    let urlImagen = sessionStorage.urlApi + 'public/' + arrayImagenes.imagenes[0]['imagen']
                     cargarImagenColorModelo(li, urlImagen, indexImagenes)
                 } else {
                     cargarNombreColorModelo(color)  

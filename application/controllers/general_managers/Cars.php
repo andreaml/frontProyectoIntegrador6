@@ -25,7 +25,8 @@ class Cars extends MY_General_Managers_Controller {
 				break;
 		}
 		$categoryString = str_replace('_', ' ', $category);
-		$this->template->load_js(['gerenteGeneral/catalogo.js']);
+		$this->template->load_js(['colores.js', 'gerenteGeneral/catalogo.js']);
+		$this->template->load_css(['gerenteGeneral/catalogo.css']);
 		$this->template->load('layout/application', 'general_managers/cars/model', [
 			'page_title' => 'Gerente general - Modelos', 
 			'category' => $categoryString,

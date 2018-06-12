@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex edition-buttons justify-content-end px-3">
-                            <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalAgregar">
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalAgregar">
                                 <i class="fa fa-plus-circle"></i>
                                 Agregar Modelo
                             </button>
@@ -38,8 +38,23 @@
             </div>
             <div class="collapse col-12 col-lg-6 mb-4" id="caracteristicasModelo">
                     <div class="card border-secondary">
-                        <div class="card-header bg-secondary text-white">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between">
                             <h4 class="nombre-modelo m-0">Vento</h4>
+                            <div class="btn-group dropleft">
+                                <button type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="fa fa-ellipsis-v"></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button id="btnEditar" class="dropdown-item" type="button" data-toggle="modal" data-target="#modalEditar">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        Editar modelo
+                                    </button>
+                                    <button class="dropdown-item" type="button">
+                                        <i class="fa fa-ban" aria-hidden="true"></i>
+                                        Deshabilitar modelo
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="d-flex">
@@ -111,21 +126,34 @@
                                     </table>
                                 </div>
                                 <div class="col-12 col-md-5 pr-0">
-                                    <h5>Colores disponibles</h5>
-                                    <img src="img/catalogo/catalogo_autosDeportivos.png" alt="" class="img-fluid">
                                     <button class="btn btn-secondary btn-block my-3" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
                                         <i class="fa fa-window-restore fa-2x" aria-hidden="true"></i> <br>
-                                        Comparar este vehículo
+                                        Comparar este modelo
                                     </button>
-                                    <h5>Vehículos</h5>
                                     <button class="btn btn-primary btn-block my-3" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
                                         <i class="fa fa-check-square-o fa-2x" aria-hidden="true"></i> <br>
                                         Gestionar vehículos
                                     </button>
-                                    <button class="btn btn-success btn-block my-3" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
-                                        <i class="fa fa-handshake-o fa-2x" aria-hidden="true"></i> <br>
-                                        Iniciar proceso de venta
-                                    </button>
+                                    <h5>Colores disponibles
+                                        <div class="btn-group dropleft">
+                                            <button type="button" class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="fa fa-ellipsis-v"></span>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <button id="btnEditar" class="dropdown-item" type="button" data-toggle="modal" data-target="#modalEditar">
+                                                    <i class="fa fa-th-large" aria-hidden="true"></i>
+                                                    Gestionar colores de modelo
+                                                </button>
+                                                <button class="dropdown-item" type="button">
+                                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                                    Administrar imágenes de modelo
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </h5>
+                                    <div id="coloresDisponibles">
+                                        <ul></ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -136,32 +164,139 @@
 </section>
 <!-- Modal agregar inicia -->
     <div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog" aria-labelledby="modalAgregarLabel" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgregarLabel"><span class="nombreCategoria small">Autos familiares</span><br>Agregar Modelo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form novalidate>
+                        <div class="form-row">
+                            <div class="form-group col-8 col-sm-9 col-md-5">
+                                <label for="modalAgregarModelo">Modelo</label>
+                                <input type="text" name="modelo" id="modalAgregarModelo" placeholder="Polo" class="form-control" maxlength="20" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-4 col-sm-3">
+                                <label for="modalAgregarAnio">Año</label>
+                                <input type="text" name="anio" id="modalAgregarAnio" placeholder="2018" class="form-control" maxlength="4" pattern="[0-9]{4}" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-12 col-sm-7 col-md-4">
+                                <label for="modalAgregarVersion">Versión</label>
+                                <input type="text" name="version" id="modalAgregarVersion" placeholder="CGI" class="form-control" maxlength="30" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-12 col-sm-5 col-md-4">
+                                <label for="modalAgregarPrecio">Precio</label>
+                                <input type="number" name="precio" id="modalAgregarPrecio" placeholder="Precio del vehículo" class="form-control" min="50000" max="1000000" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <h6 class="mb-0"><b>Características</b></h6>
+                            <hr class="mt-0">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregarTransmision">Transmisión</label>
+                                <input type="text" name="tipoTransmision" id="modalAgregarTransmision" placeholder="Manual" class="form-control" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregarAireAcondicionado">Aire acondicionado</label>
+                                <select name="aireAcondicionado" id="modalAgregarAireAcondicionado" class="form-control" required>
+                                    <option value="\1">Si</option>
+                                    <option value="\0">No</option>                            
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregarbolsasAire">Bolsas de Aire</label>
+                                <input type="number" name="bolsasAire" id="modalAgregarbolsasAire" placeholder="5" min="0" max="10" class="form-control" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregartipoFreno">Tipos de Frenos</label>
+                                <input type="text" name="tipoFreno" id="modalAgregartipoFreno" placeholder="ABS" class="form-control" maxlength="30" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregarCilindrada">No. Cilindros</label>
+                                <input type="number" name="cilindrada" id="modalAgregarCilindrada" placeholder="8" min="3" max="20" class="form-control" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregarNumPuertas">No. de Puertas</label>
+                                <input type="number" name="numPuertas" id="modalAgregarNumPuertas" placeholder="4" min="2" max="8" class="form-control" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregarNumPasajeros">No. de Pasajeros</label>
+                                <input type="number" name="numPasajeros" id="modalAgregarNumPasajeros" placeholder="4" min="2" max="8" class="form-control" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregarTipoCombustible">Tipo de combustible</label>
+                                <input type="text" name="tipoCombustible" id="modalAgregarTipoCombustible" placeholder="Tipo de Combustible" class="form-control" maxlength="7" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="modalAgregarPotencia">Potencia</label>
+                                <input type="text" name="potencia" id="modalAgregarPotencia" placeholder="Potencia del vehículo" class="form-control" maxlength="8" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-12 col">
+                                <label for="modalAgregarEquipamiento">Equipamiento</label>
+                                <textarea name="equipamiento" id="modalAgregarEquipamiento" class="form-control" rows="3" maxlength="255" required></textarea>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnModalAgregarModelo" type="button" class="btn btn-primary">Agregar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Modal agregar termina -->
+<!-- Modal editar inicia -->
+    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalAgregarLabel"><span class="nombreCategoria small">Autos familiares</span><br>Agregar Modelo</h5>
+                <h5 class="modal-title" id="modalEditarLabel">Editar Modelo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form novalidate>
+            <form novalidate>
                     <div class="form-row">
                         <div class="form-group col-8 col-sm-9 col-md-5">
-                            <label for="modalAgregarModelo">Modelo</label>
-                            <input type="text" name="modelo" id="modalAgregarModelo" placeholder="Polo" class="form-control">
+                            <label for="modalEditarModelo">Modelo</label>
+                            <input type="text" name="modelo" id="modalEditarModelo" placeholder="Polo" class="form-control" maxlength="20" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-4 col-sm-3">
-                            <label for="modalAgregarAnio">Año</label>
-                            <input type="text" name="anio" id="modalAgregarAnio" placeholder="2018" class="form-control">
+                            <label for="modalEditarAnio">Año</label>
+                            <input type="text" name="anio" id="modalEditarAnio" placeholder="2018" class="form-control" maxlength="4" pattern="[0-9]{4}" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-12 col-sm-7 col-md-4">
-                            <label for="modalAgregarVersion">Versión</label>
-                            <input type="text" name="version" id="version" placeholder="CGI" class="form-control">
+                            <label for="modalEditarVersion">Versión</label>
+                            <input type="text" name="version" id="modalEditarVersion" placeholder="CGI" class="form-control" maxlength="30" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-12 col-sm-5 col-md-4">
-                            <label for="modalAgregarPrecio">Precio</label>
-                            <input type="text" name="precio" id="precio" placeholder="Precio del vehículo" class="form-control">
+                            <label for="modalEditarPrecio">Precio</label>
+                            <input type="number" name="precio" id="modalEditarPrecio" placeholder="Precio del vehículo" class="form-control" min="50000" max="1000000" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="my-3">
@@ -170,145 +305,63 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6 col-sm-3">
-                            <label for="modalAgregarTransmision">Transmisión</label>
-                            <input type="text" name="transmision" id="transmision" placeholder="Manual" class="form-control">
+                            <label for="modalEditarTransmision">Transmisión</label>
+                            <input type="text" name="tipoTransmision" id="modalEditarTransmision" placeholder="Manual" class="form-control" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-6 col-sm-3">
-                            <label for="aireAcondicionado">Aire acondicionado</label>
-                            <select name="aireAcondicionado" id="aireAcondicionado" class="form-control">
-                                <option value="0">Si</option>
-                                <option value="1">No</option>                            
+                            <label for="modalEditarAireAcondicionado">Aire acondicionado</label>
+                            <select name="aireAcondicionado" id="modalEditarAireAcondicionado" class="form-control" required>
+                                <option value="\1">Si</option>
+                                <option value="\0">No</option>                            
                             </select>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-6 col-sm-3">
-                            <label for="modalAgregarbolsasAire">Bolsas de Aire</label>
-                            <input type="number" name="bolsasAire" id="bolsasAire" placeholder="5" min="0" max="10" class="form-control">
+                            <label for="modalEditarbolsasAire">Bolsas de Aire</label>
+                            <input type="number" name="bolsasAire" id="modalEditarbolsasAire" placeholder="5" min="0" max="10" class="form-control" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-6 col-sm-3">
-                            <label for="modalAgregartipoFrenos">Tipos de Frenos</label>
-                            <input type="text" name="tipoFrenos" id="tipoFrenos" placeholder="ABS" class="form-control">
+                            <label for="modalEditartipoFreno">Tipos de Frenos</label>
+                            <input type="text" name="tipoFreno" id="modalEditartipoFreno" placeholder="ABS" class="form-control" maxlength="30" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-6 col-sm-3">
-                            <label for="modalAgregarCilindrada">No. Cilindros</label>
-                            <input type="number" name="cilindrada" id="cilindrada" placeholder="8" min="3" max="20" class="form-control">
+                            <label for="modalEditarCilindrada">No. Cilindros</label>
+                            <input type="number" name="cilindrada" id="modalEditarCilindrada" placeholder="8" min="3" max="20" class="form-control" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-6 col-sm-3">
-                            <label for="modalAgregarPuertas">No. de Puertas</label>
-                            <input type="number" name="puertas" id="puertas" placeholder="4" min="2" max="8" class="form-control">
+                            <label for="modalEditarNumPuertas">No. de Puertas</label>
+                            <input type="number" name="numPuertas" id="modalEditarNumPuertas" placeholder="4" min="2" max="8" class="form-control" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-6 col-sm-3">
-                            <label for="modalAgregarCombustible">Combustible</label>
-                            <input type="text" name="Combustible" id="combustible" placeholder="Tipo de Combustible" class="form-control">
+                            <label for="modalEditarNumPasajeros">No. de Pasajeros</label>
+                            <input type="number" name="numPasajeros" id="modalEditarNumPasajeros" placeholder="4" min="2" max="8" class="form-control" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-6 col-sm-3">
-                            <label for="modalAgregarPotencia">Potencia</label>
-                            <input type="text" name="potencia" id="potencia" placeholder="Potencia del vehículo" class="form-control">
+                            <label for="modalEditarTipoCombustible">Tipo de combustible</label>
+                            <input type="text" name="tipoCombustible" id="modalEditarTipoCombustible" placeholder="Tipo de Combustible" class="form-control" maxlength="7" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group col-6 col-sm-3">
+                            <label for="modalEditarPotencia">Potencia</label>
+                            <input type="text" name="potencia" id="modalEditarPotencia" placeholder="Potencia del vehículo" class="form-control" maxlength="8" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-12 col">
-                            <label for="modalAgregarEquipamiento">Equipamiento</label>
-                            <textarea name="equipamiento" id="equipamiento" class="form-control" rows="3"></textarea>
+                            <label for="modalEditarEquipamiento">Equipamiento</label>
+                            <textarea name="equipamiento" id="modalEditarEquipamiento" class="form-control" rows="3" maxlength="255" required></textarea>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary">Agregar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal agregar termina -->
-<!-- Modal editar inicia -->
-    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel" data-backdrop="static">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalEditarLabel">Editar Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                        <div class="form-group">
-                        <label for="modalEditarModelo">Modelo</label>
-                        <input type="text" name="modelo" id="modelo" placeholder="Modelo del vehículo" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarAnio">Año</label>
-                        <input type="text" name="anio" id="anio" placeholder="Año del vehículo" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarNombre">Color</label>
-                        <input type="text" name="color" id="color" placeholder="Color del vehículo" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarVersion">Versión</label>
-                            <input type="text" name="version" id="version" placeholder="Versión del vehículo" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarTransmision">Transmisión</label>
-                        <input type="text" name="transmision" id="transmision" placeholder="Transmisión del vehículo" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="EditaraireAcondicionado">Aire acondicionado</label>
-                        <select name="aireAcondicionado" id="aireAcondicionado" class="form-control">
-                            <option value="0">Si</option>
-                            <option value="1">No</option>                            
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarbolsasAire">Bolsas de Aire</label>
-                        <input type="number" name="bolsasAire" id="bolsasAire" placeholder="Número de Bolsas de Aire" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditartipoFrenos">Tipos de Frenos</label>
-                        <input type="text" name="tipoFrenos" id="tipoFrenos" placeholder="Tipos de Frenos" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarCilindrada">No. Cilindros</label>
-                        <input type="number" name="cilindrada" id="cilindrada" placeholder="Número de Cilindros" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarEquipamiento">Equipamiento</label>
-                        <input type="text" name="equipamiento" id="equipamiento" placeholder="Equipamientos del vehículo" class="form-control">
-                    </div>
-                        <div class="form-group">
-                        <label for="modalEditarDisponibilidad">Disponibilidad</label>
-                        <input type="text" name="disponibilidad" id="disponibilidad" placeholder="Vehículos Disponibles" class="form-control">
-                    </div>
-                        <div class="form-group">
-                        <label for="modalEditarPrecio">Precio</label>
-                        <input type="text" name="precio" id="precio" placeholder="Precio del vehículo" class="form-control">
-                    </div>
-                        <div class="form-group">
-                        <label for="modalEditarPuertas">No. de Puertas</label>
-                        <input type="text" name="puertas" id="puertas" placeholder="Número de Puertas" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarCombustible">Combustible</label>
-                        <input type="text" name="Combustible" id="combustible" placeholder="Tipo de Combustible" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="modalEditarPotencia">Potencia</label>
-                        <input type="text" name="potencia" id="potencia" placeholder="Potencia del vehículo" class="form-control">
-                    </div>
-                        <div class="form-group">
-                        <label for="Editarcategoria">Categoria</label>
-                        <select name="categoria" id="categoria" class="form-control">
-                            <option value="0">Categoría del vehículo</option>
-                            <option value="1">Autos Familiares</option>
-                            <option value="2">Autos Compactos</option>
-                            <option value="3">Autos Deportivos</option>
-                            <option value="4">Camionetas</option>                            
-                        </select>
-                        </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary">Editar</button>
+                <button id="btnModalEditarModelo" type="button" class="btn btn-primary">Editar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -320,13 +373,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEliminarLabel">Eliminar Vehículo</h5>
+                <h5 class="modal-title" id="modalEliminarLabel">Deshabilitar Vehículo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>¿Desea eliminar el Vehículo <b id="modalEliminarIdVehiculo">id Vehículo</b>?</p>
+                <p>¿Desea eliminar el modelo <b id="modalEliminarIdVehiculo">nombre modelo</b>?</p>
+                <p>Una vez que lo haga, no podrá activarlo de nuevo.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger">Eliminar</button>
@@ -336,6 +390,42 @@
     </div>
 </div> 
 <!-- Modal eliminar termina -->
+<!-- Modal gestionar colores por modelo inicia -->
+    <div class="modal fade" id="modalGestionarColoresModelo" tabindex="-1" role="dialog" aria-labelledby="modalGestionarColoresModeloLabel" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalGestionarColoresModeloLabel">
+                        Gestionar colores de modelo
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form novalidate>
+                        <div class="form-row">
+                            <div class="form-group col-12 col-md-6">
+                                <label for="selectColores">Colores disponibles</label>
+                                <select name="color" id="selectColores" class="form-control"></select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-4 col-sm-3">
+                                <label for="modalGestionarColoresModeloAnio">Año</label>
+                                <input type="text" name="anio" id="modalGestionarColoresModeloAnio" placeholder="2018" class="form-control" maxlength="4" pattern="[0-9]{4}" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnModalGestionarColoresModelo" type="button" class="btn btn-primary">Agregar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Modal gestionar colores por modelo termina -->
 <script>
     
     var idCategoria = <?= $idCategory ?>;

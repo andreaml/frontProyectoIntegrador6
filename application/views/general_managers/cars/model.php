@@ -7,11 +7,11 @@
             <div class="col-12 col-lg-6 mb-3 div-modelo">
                 <div class="card border-secondary">
                     <div class="card-header bg-secondary text-white">
-                        <h5 class="nombre-modelo m-0">Modelos disponibles</h5>
+                        <h5 class="m-0">Modelos disponibles</h5>
                     </div>
                     <div class="card-body">
                         <div class="d-flex edition-buttons justify-content-end px-3">
-                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalAgregar">
+                            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modalAgregar">
                                 <i class="fa fa-plus-circle"></i>
                                 Agregar Modelo
                             </button>
@@ -140,10 +140,10 @@
                                                     <i class="fa fa-th-large" aria-hidden="true"></i>
                                                     Gestionar colores de modelo
                                                 </button>
-                                                <button class="dropdown-item" type="button">
+                                                <!-- <button class="dropdown-item" type="button">
                                                     <i class="fa fa-picture-o" aria-hidden="true"></i>
                                                     Administrar imágenes de modelo
-                                                </button>
+                                                </button> -->
                                             </div>
                                         </div>
                                     </h5>
@@ -364,7 +364,7 @@
     </div>
 </div>
 <!-- Modal editar termina -->
-    <!-- Modal eliminar inicia -->
+<!-- Modal eliminar inicia -->
 <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -425,6 +425,89 @@
         </div>
     </div>
 <!-- Modal gestionar colores por modelo termina -->
+<!-- Modal imagenes inicia -->
+    <div class="modal fade" id="modalCarrusel" tabindex="-1" role="dialog" aria-labelledby="modalCarruselLabel" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCarruselLabel">Galería</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="carruselImagenes" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner"></div>
+                        <a class="carousel-control-prev" href="#carruselImagenes" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carruselImagenes" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <form id="formImagen" method="POST" action="" enctype="multipart/form-data" novalidate>
+                        <div class="input-group mt-3">
+                            <div class="custom-file">
+                                <input type="hidden" name="nombre_imagen">
+                                <input type="hidden" name="idModeloVehiculo">
+                                <input type="hidden" name="idColor">
+                                <input type="file" name="userfile" class="custom-file-input" accept=".jpg, .jpeg, .png" required>
+                                <label for="logo" class="custom-file-label">Examinar...</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button id="btnSubirImagen" class="btn btn-primary" type="button">
+                                    <i class="fa fa-upload"></i>
+                                    Subir
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+<!-- Modal imagenes termina -->
+<!-- Modal imagenes inicia -->
+<div class="modal fade" id="modalAgregarImagen" tabindex="-1" role="dialog" aria-labelledby="modalAgregarImagenLabel" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgregarImagenLabel">Agregar imagen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarImagen" method="POST" action="" enctype="multipart/form-data" novalidate>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="hidden" name="nombre_imagen">
+                                <input type="hidden" name="idModeloVehiculo">
+                                <input type="hidden" name="idColor">
+                                <input type="file" name="userfile" class="custom-file-input" accept=".jpg, .jpeg, .png" required>
+                                <label for="logo" class="custom-file-label">Examinar...</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button id="btnAgregarImagen" class="btn btn-primary" type="button">
+                                    <i class="fa fa-upload"></i>
+                                    Subir
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+<!-- Modal imagenes termina -->
 <script>
     var idCategoria = <?= $idCategory ?>;
 </script>

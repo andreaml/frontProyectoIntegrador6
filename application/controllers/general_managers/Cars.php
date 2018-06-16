@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cars extends MY_General_Managers_Controller {
 	public function index() {
-		$this->template->load('layout/application', 'general_managers/cars/index', ['page_title' => 'Gerente general - Catálogo']);
+		$this->template->load('layout/application', 'general_managers/cars/index', ['page_title' => 'Catálogo']);
 	}
 
 	public function byCategory($category) {
@@ -28,7 +28,7 @@ class Cars extends MY_General_Managers_Controller {
 		$this->template->load_js(['colores.js', 'gerenteGeneral/catalogo.js']);
 		$this->template->load_css(['gerenteGeneral/catalogo.css']);
 		$this->template->load('layout/application', 'general_managers/cars/model', [
-			'page_title' => 'Gerente general - Modelos', 
+			'page_title' => 'Catálogo', 
 			'category' => $categoryString,
 			'idCategory' => $idCategory,
 		]);

@@ -12,11 +12,22 @@ ul {
 #caracteristicasModelo .card-header .btn span.fa-ellipsis-v {
     font-size: 1.5rem;
 }
-
 .dropdown-item:focus, .dropdown-item:hover {
 	background-color: #eee;
 }
-
 table td {
     vertical-align: middle !important;
+}
+.custom-file-input ~ .custom-file-label::after {
+    content: "Explorar";
+}
+/*when a value is selected, this class removes the content */
+.custom-file-control.selected:lang(en)::after {
+    content: "" !important;
+}
+.custom-file {
+    overflow: hidden;
+}
+.custom-file-control {
+    white-space: nowrap;
 }

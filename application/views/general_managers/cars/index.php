@@ -3,13 +3,6 @@
 <section class="container-fluid">
     <div class="col-12">
         <h2 class="section-title">Gestión de Catálogo</h2>
-        <div class="d-flex edition-buttons justify-content-end">
-            <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalAgregar">
-                <i class="fa fa-plus-circle"></i>
-                Agregar Vehículo
-            </button>
-
-        </div>
         <div class="row">
             <div class="col-12 col-md-6 mb-3">
                 <div class="card">

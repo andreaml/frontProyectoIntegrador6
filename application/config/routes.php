@@ -57,3 +57,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['gerenteGeneral/sucursales']         = 'general_managers/Branches';
 $route['gerenteGeneral/catalogo']           = 'general_managers/Cars';
 $route['gerenteGeneral/catalogo/(:any)']    = 'general_managers/Cars/byCategory/$1';
+
+$route['gerenteGeneral/usuarios'] = 'general_managers/Users';

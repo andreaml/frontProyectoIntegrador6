@@ -24,7 +24,7 @@ class Template {
   public function load($template = '', $view = '', $view_data = array(), $return = FALSE) {
     $this->CI = &get_instance();
     $this->set('stylesheets', $this->CI->load->view('layout/stylesheets', $this->template_data, TRUE));
-    $this->set('header', $this->CI->load->view('layout/header', $this->template_data, TRUE));
+    $this->set('header', $this->CI->load->view('layout/header', array_merge($this->template_data, $view_data), TRUE));
     $this->set('contents', $this->CI->load->view($view, $view_data, TRUE));   
     $this->set('scripts', $this->CI->load->view('layout/scripts', $this->template_data, TRUE));
     return $this->CI->load->view($template, $this->template_data, $return);

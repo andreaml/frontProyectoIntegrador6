@@ -24,7 +24,9 @@ class MY_Controller extends CI_Controller {
       'lib/datatables/datatables.min.js',
       'lib/sweetalert/sweetAlert.min.js',
       'funcionesGenerales.js',
-      'parseoErroresMysql.js'
+      'parseoErroresMysql.js',
+      'api.js',
+      'myDataTable.js'
     ]);
   }
 }

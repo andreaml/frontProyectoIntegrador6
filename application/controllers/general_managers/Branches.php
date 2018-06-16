@@ -6,6 +6,6 @@ class Branches extends MY_General_Managers_Controller {
     $this->template->load_js([
       'gerenteGeneral/sucursales.js'
     ]);
-    $this->template->load('layout/application', 'general_managers/branches/index', ['page_title' => 'Gerente General - Sucursales']);
+    $this->template->load('layout/application', 'general_managers/branches/index', ['page_title' => 'Sucursales']);
   }
 }

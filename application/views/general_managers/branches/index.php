@@ -4,12 +4,17 @@
     <div class="col-12">
         <h2 class="section-title">Gestión de Sucursales</h2>
         <div class="d-flex edition-buttons justify-content-end">
-            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalAgregar">
+            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modalAgregar">
                 <i class="fa fa-plus-circle"></i>
                 Agregar Sucursal
             </button>
         </div>
         <div class="row mb-3">
+            <div class="col-12">
+                <div id="filtrosTabla" class="form-inline d-flex justify-content-center px-3 mb-3 ">
+                    <label class="my-1 mr-4">FILTROS</label>
+                </div>
+            </div>
             <table id="tablaSucursales" class="table table-striped display select compact" style="width:100%">
                 <thead class="thead-dark">
                     <tr>
@@ -115,7 +120,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="btnModalAgregarSucursal" type="button" class="btn btn-primary">Agregar</button>
+                <button id="btnModalAgregar" type="button" class="btn btn-primary">Agregar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -202,7 +207,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="btnModalEditarSucursal" type="button" class="btn btn-primary" data-id-sucursal="">Editar</button>
+                <button id="btnModalEditar" type="button" class="btn btn-primary" data-id-sucursal="">Editar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -224,7 +229,7 @@
                 </ul>
             </div>
             <div class="modal-footer">
-                <button id="btnModalDeshabilitarSucursal" type="button" class="btn btn-danger">Deshabilitar</button>
+                <button id="btnModalDeshabilitar" type="button" class="btn btn-danger">Deshabilitar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

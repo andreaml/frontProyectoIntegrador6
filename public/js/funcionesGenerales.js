@@ -1,5 +1,6 @@
-sessionStorage.setItem('urlApi', 'http://sistema-volkswagen.ddns.net/volkswagen/');
-// sessionStorage.setItem('urlApi', 'http://127.0.0.1/volkswagen/');
+// sessionStorage.setItem('urlApi', 'http://sistema-volkswagen.ddns.net/volkswagen/');
+sessionStorage.setItem('urlApi', 'http://127.0.0.1/volkswagen/');
+localStorage.setItem("idUsuarioActual", 1)
 var configuracionLeyendasTabla = {
     lengthMenu: "Mostrar _MENU_ resultados",
     search: "Buscar:",
@@ -14,6 +15,14 @@ var configuracionLeyendasTabla = {
         last:     'Última'
     }
 }
+
+var divs = function(clases) {
+    return {
+        apertura: `<div class="${clases}">`,
+        cierre: `</div>`
+    }
+}
+
 const notificacionEsquina = swal.mixin({
     toast: true,
     position: 'top-end',
@@ -65,4 +74,24 @@ function cargarValoresSelect(idSelect, listaOpciones) {
     $(`#${idSelect}`).trigger('change');
 }
 
+function limpiarFormulario(idFormulario) {
+    $("#" + idFormulario + " input, " + "#" + idFormulario + " textarea").val('');
+    $("#" + idFormulario + " select").val($("#" + idFormulario + " option:first").val());
+    $("#" + idFormulario +" .was-validated").removeClass("was-validated");
+}
+
+function clickModalAgregarCancelar() {
+    $("#modalAgregar .btn-danger").click(function(){
+        limpiarFormulario("modalAgregar form")
+    });
+}
+
+function asociarInformacionAModalEditar(_elemento) {
+    $("#btnModalEditar").attr('data-id-elemento', _elemento._id)
+    $.each(_elemento, function(key, val) {
+        $(".form-control[name='" + key + "']").val(val).change();
+    })
+}
+
 vincularEventoKeyupConInput();
+clickModalAgregarCancelar();

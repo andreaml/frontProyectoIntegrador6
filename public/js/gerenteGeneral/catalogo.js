@@ -74,6 +74,7 @@ function cargarColoresModelo(idModelo) {
         if (respuesta.status) {
             mostrarColoresPorModelo(idModelo, respuesta.data)
         } else {
+            $("#modalGestionarColoresModelo table tbody").html('Sin colores vinculados')
             $("#coloresDisponibles ul").html('Sin colores disponibles')
         }
     })
@@ -96,44 +97,58 @@ function mostrarNombresColoresModelo(colorModelo) {
     colores.map(function(color) {
         if (colorModelo.idColor === color.idColor) { 
             cargarUrlImagenesColorModelo(colorModelo.idModeloVehiculo, colorModelo.idColor, (arrayImagenes) => {
+                let indexImagenes = `${colorModelo.idModeloVehiculo}${colorModelo.idColor}`
+                let valoresModCol = {
+                    idModeloVehiculo: colorModelo.idModeloVehiculo,
+                    idColor: colorModelo.idColor
+                }
                 if (arrayImagenes) {
-                    let indexImagenes = `${colorModelo.idModeloVehiculo}${colorModelo.idColor}`
                     imagenes[indexImagenes] = arrayImagenes
                     let li = `<li>${color.color}<li>`
                     let urlImagen = sessionStorage.urlApi + 'public/' + arrayImagenes.imagenes[0]['imagen']
-                    cargarImagenColorModelo(li, urlImagen, indexImagenes)
+                    cargarImagenColorModelo(li, urlImagen, indexImagenes, valoresModCol)
                 } else {
-                    cargarNombreColorModelo(color)  
+                    imagenes[indexImagenes] = []
+                    cargarNombreColorModelo(color, indexImagenes, valoresModCol)  
                 }
             });
             cargarColoresModeloModalGestionarColores(color, colorModelo.idModeloVehiculo)
         }
     })
-    
 }
 
-function cargarImagenColorModelo(li, urlImagen = '', indexImagenes) {
+function botonAgregarImagen(indexImagenes, valoresModCol) {
+    return $("<button>Agregar imagen</button>")
+    .attr("data-id-color", valoresModCol.idColor)
+    .attr("data-id-modelo", valoresModCol.idModeloVehiculo)
+    .attr("id", indexImagenes)
+    .attr("class", "btn btn-link")
+    .on('click', clickAgregarImagen)
+}
+
+function cargarImagenColorModelo(li, urlImagen = '', indexImagenes, valoresModCol) {
     $("<img/>")
     .on('load', function() { 
         if ($("#coloresDisponibles ul .fa-spinner").length)
             $("#coloresDisponibles ul").html('');
         $("#coloresDisponibles ul").append(li).append(this)
     })
-    .on('error', function() { 
+    .on('error', function(error) { 
         if ($("#coloresDisponibles ul .fa-spinner").length)
             $("#coloresDisponibles ul").html('');
-        $("#coloresDisponibles ul").append(li)
-        })
+        $("#coloresDisponibles ul").append(li).append(botonAgregarImagen(indexImagenes, valoresModCol))
+    })
+    .on('click', clickImagenColorModelo)
     .attr("src", urlImagen)
     .attr("id", indexImagenes)
-    .attr("class", "img-fluid");
+    .attr("class", "img-fluid imgColorModelo");
 }
 
-function cargarNombreColorModelo(color) {
+function cargarNombreColorModelo(color, indexImagenes, valoresModCol) {
     if ($("#coloresDisponibles ul .fa-spinner").length)
         $("#coloresDisponibles ul").html('');
     let li = `<li>${color.color}<li>`
-    $("#coloresDisponibles ul").append(li)
+    $("#coloresDisponibles ul").append(li).append(botonAgregarImagen(indexImagenes, valoresModCol))
 }
 
 function cargarModelosPorCategoria(idCategoria) {
@@ -377,7 +392,7 @@ function editarModelo(parametros, idModelo) {
             'accept': 'application/json'
         },
         method: 'PUT',
-        url: `${sessionStorage.urlApi}modelos/editar/${idModelo}`, 
+        url: `${sessionStorage.urlApi}modelos/${idModelo}`, 
     })
     .done(function(respuesta) {
         if (respuesta.status) {
@@ -512,6 +527,199 @@ function vincularColorModelo(parametros) {
     })
 }
 
+function clickImagenColorModelo() {
+    $("#modalCarrusel").modal('show')
+    $("#carruselImagenes .carousel-inner").html('')
+    let indexImagenes = $(this).attr("id")
+    let arrayImagenes = imagenes[indexImagenes].imagenes
+    let divsCarrusel = ''
+    let botonEliminar = ''
+    cargarValoresFormImagen("formImagen", arrayImagenes[0]);
+    arrayImagenes.map(function(imagen, key) {
+        let urlImagen = sessionStorage.urlApi + 'public/' + imagen.imagen
+        if (key == 0) {
+            divsCarrusel = divs("carousel-item active")
+        } else {
+            divsCarrusel = divs("carousel-item")
+        }
+        let divsCaption = divs("carousel-caption d-none d-md-block")
+        botonEliminar = $(`
+            <button type="button" class="btn btn-light eliminarImagenColorModelo" data-index-imagenes="${indexImagenes}" data-index-array="${key}" data-id-imagen="${imagen.idImagen}" data-nombre-imagen="${imagen.imagen}" data-modelo="${imagen.idModeloVehiculo}">
+                <span class="fa fa-trash"></span>
+                Eliminar imagen
+            </button>`)
+            .on('click', clickEliminarImagenColorModelo)
+        cargarImagenesColorModeloCarrusel(divsCarrusel, divsCaption, urlImagen, botonEliminar)
+    })
+}
+
+function cargarValoresFormImagen(idForm, datosImagen) {
+    $("#" + idForm + " input[name='idModeloVehiculo']").val(datosImagen.idModeloVehiculo)
+    $("#" + idForm + " input[name='idColor']").val(datosImagen.idColor)
+    let nombreImagen = "mod_" + datosImagen.idModeloVehiculo + "_color_" + datosImagen.idColor;
+    $("#" + idForm + " input[name='nombre_imagen']").val(nombreImagen)
+}
+
+function cargarImagenesColorModeloCarrusel(divsImg, divsCaption, urlImagen = '', botonEliminar) {
+    let caption = $(`${divsCaption.apertura}${divsCaption.cierre}`).append($(botonEliminar))
+    let img = $("<img/>")
+    .on('load', function() { 
+        let div = $(`${divsImg.apertura}${divsImg.cierre}`).append(this).append(caption)
+        $("#carruselImagenes .carousel-inner").append(div)
+    })
+    .attr("alt", "Imagen de auto")
+    .attr("src", urlImagen)
+    .attr("class", "d-block w-100");
+}
+
+function clickEliminarImagenColorModelo() {
+    let indexImagenes =  $(this).attr("data-index-imagenes")
+    let indexArray =  $(this).attr("data-index-array")
+    let idImagen = $(this).attr("data-id-imagen")
+    let nombreImagen = $(this).attr("data-nombre-imagen")
+    let idModeloVehiculo = $(this).attr("data-modelo")
+    let idColor = $(this).attr("data-id-color")
+    let itemCarousel = $(this).closest(".carousel-item")
+    $.ajax({
+        crossDomain: true,
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'accept': 'application/json'
+        },
+        data: {
+            nombre_imagen: nombreImagen
+        },
+        method: 'DELETE',
+        url: `${sessionStorage.urlApi}imagen/${idImagen}`, 
+    })
+    .done(function(respuesta) {
+        if (respuesta.status) {
+            imagenes[indexImagenes].imagenes.splice(indexArray, 1); 
+            $("img.imgColorModelo#" + indexImagenes).trigger('click');
+            notificacionCentro({
+                type: 'success',
+                title: 'Imagen eliminada con éxito.'
+            });
+        } else {
+            notificacionCentro({
+                type: 'warning',
+                title: 'Error interno. Por favor inténtelo de nuevo más tarde.'
+            });
+        }
+    })
+    .fail(function(error) {
+        notificacionCentro({
+            type: 'warning',
+            title: 'Error en la conexión. Inténtelo de nuevo por favor.'
+        });
+    })
+}
+
+function clickAgregarImagen() {
+    $("#modalAgregarImagen").modal("show");
+    let idColor = $(this).attr("data-id-color")
+    let idModeloVehiculo = $(this).attr("data-id-modelo")
+    let datosImagen = {
+        idColor: idColor,
+        idModeloVehiculo: idModeloVehiculo
+    }
+    cargarValoresFormImagen("formAgregarImagen", datosImagen);
+}
+
+function _clickAgregarImagen() {
+    $("#btnAgregarImagen").unbind("click").on("click", function() {
+        if (validarInputImagen("formAgregarImagen")) {
+            var formData = new FormData($("#formAgregarImagen")[0]);
+            var message = ""; 
+            //hacemos la petición ajax  
+            $.ajax({
+                url: `${sessionStorage.urlApi}imagen`,
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data, status, xhr) {
+                    limpiarInputImagen("formAgregarImagen");
+                    $("#modalAgregarImagen").modal("hide");
+                    cargarColoresModelo(data.data.idModeloVehiculo)
+                    $("img.imgColorModelo#" + indexImagenes).trigger('click');
+                    notificacionCentro({
+                        type: 'success',
+                        title: 'Imagen subida con éxito'
+                    })
+                },
+                error: function (err) {
+                    notificacionCentro({
+                        type: 'error',
+                        title: 'Error al subir la imagen',
+                        text: 'Inténtelo de nuevo más tarde, por favor.'
+                    })
+                }
+            });
+        } else {
+            notificacionCentro({
+                type: 'warning',
+                title: 'Elija una imagen',
+            })
+        }
+    })
+}
+
+function validarInputImagen(idFormulario) {
+    let archivos = $("#" + idFormulario + " input[type='file']")[0].files.length
+    return (archivos > 0)
+}
+
+function limpiarInputImagen(idFormulario) {
+    $("#" + idFormulario + " input[type='file']").val('');
+}
+
+function clickSubirImagen() {
+    $("#btnSubirImagen").unbind("click").on("click", function() {
+        if (validarInputImagen("formImagen")) {
+            var formData = new FormData($("#formImagen")[0]);
+            var message = ""; 
+            //hacemos la petición ajax  
+            $.ajax({
+                url: `${sessionStorage.urlApi}imagen`,
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data, status, xhr) {
+                    limpiarInputImagen("formImagen");
+                    let indexImagenes = data.data.idModeloVehiculo + '' + data.data.idColor
+                    imagenes[indexImagenes].imagenes.push(data.data);
+                    $("img.imgColorModelo#" + indexImagenes).trigger('click');
+                    notificacionCentro({
+                        type: 'success',
+                        title: 'Imagen subida con éxito'
+                    })
+                },
+                error: function (err) {
+                    notificacionCentro({
+                        type: 'error',
+                        title: 'Error al subir la imagen',
+                        text: 'Inténtelo de nuevo más tarde, por favor.'
+                    })
+                }
+            });
+        } else {
+            notificacionCentro({
+                type: 'warning',
+                title: 'Elija una imagen',
+            })
+        }
+    })
+}
+
+function mostrarNombreArchivoSeleccionado() {
+    $('.custom-file-input').on('change', function() { 
+        let nombreImagen = $(this).val().split('\\').pop()
+        $(this).next('.custom-file-label').addClass("selected").html(nombreImagen)
+    });
+}
+
 function init() {
     detectarCambioSelectColores()
     cargarModelosPorCategoria(idCategoria)
@@ -527,6 +735,9 @@ function init() {
     clickModalAgregarModelo()
     clickEditarModelo()
     clickModalEditarModelo()
+    mostrarNombreArchivoSeleccionado()
+    clickSubirImagen()
+    _clickAgregarImagen()
 }
 
 init();

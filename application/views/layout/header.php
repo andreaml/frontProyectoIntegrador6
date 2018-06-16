@@ -33,19 +33,19 @@
 				<a class="nav-link" href="<?= base_url("agency_managers/stocks") ?>">Stocks</a>
 				</li>
 			<?php elseif ($user == 'general_manager'): ?>
-				<li class="nav-item">
+				<li class="nav-item <?= ($page_title == "Sucursales") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("gerenteGeneral/sucursales") ?>">Sucursales</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <?= ($page_title == "Usuarios") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("gerenteGeneral/usuarios") ?>">Usuarios</a>
 				</li>
-				<li class="nav-item active">
+				<li class="nav-item <?= ($page_title == "Catálogo") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("gerenteGeneral/catalogo") ?>">Catálogo</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <?= ($page_title == "Stocks") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("gerenteGeneral/stocks") ?>">Stocks</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <?= ($page_title == "Reportes") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("gerenteGeneral/reportes") ?>">Reportes</a>
 				</li>
 			<?php endif; ?>

@@ -17,6 +17,10 @@ a {
     transition: font-weight ease 0.5s, color ease 0.5s;
 }
 
+.form-control::placeholder {
+    color: #cdcdcd;
+} 
+
 a:hover {
     text-decoration: none;
     font-weight: 400;
@@ -112,6 +116,19 @@ div.dataTables_wrapper div.dataTables_filter input {
 
 #caracteristicasModelo table th {
     font-weight: 500;
+}
+
+#filtrosTabla {
+    background-color: #e7e9e9;
+}
+#filtrosTabla .btn-group {
+    margin-right: 5px;
+}
+#filtrosTabla .dropdown-item {
+    cursor: pointer;
+}
+#filtrosTabla .dropdown-item:hover {
+    background-color: #eeeeee;
 }
 
 /* .daterangepicker > * {

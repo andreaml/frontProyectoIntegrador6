@@ -252,5 +252,3 @@
 					});
 			</script>
 	<!-- Cargar sólo si se utiliza selector de fecha u hora FIN -->
-	</body>
-</html>

@@ -140,13 +140,14 @@
                         </div>
                         <div class="form-group col-12 col-md-6">
                             <label for="modalEditarNumSerie">Número de serie</label>
-                            <input type="text" name="numeroSerie" id="modalEditarNumSerie" class="form-control">
+                            <input type="text" name="numeroSerie" id="modalEditarNumSerie" class="form-control" required>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                <button id="btnModalEditar" type="button" class="btn btn-primary">Guardar cambios</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

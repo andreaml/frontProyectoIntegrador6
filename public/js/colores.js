@@ -12,6 +12,20 @@ function cargarColores(callback) {
     })
 }
 
+function cargarColoresPorModelo(idModelo, callback) {
+    $.get(`${sessionStorage.urlApi}colores/porModelo/${idModelo}`)
+    .done(function(respuesta) {
+        if (respuesta.status) {
+            callback(respuesta.data)
+        } else {
+            callback(false)
+        }
+    })
+    .fail(function() {
+        callback(false)
+    })
+}
+
 function cargarUrlImagenesColorModelo(idModeloVehiculo, idColor, callback) {
     console.log(idModeloVehiculo, idColor)
     $.get(`${sessionStorage.urlApi}imagen/${idModeloVehiculo}/${idColor}`)

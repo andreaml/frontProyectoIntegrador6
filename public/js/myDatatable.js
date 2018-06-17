@@ -19,9 +19,11 @@ var myDataTable = (function() {
 
     function init(datosConstructores) {
         data = datosConstructores;
+        if (!data.deshabilitarSeleccion) {
+            clickCheckboxTabla();
+            clickSeleccionarTodo();
+        }
         cargarTabla();
-        clickCheckboxTabla();
-        clickSeleccionarTodo();
     }
 
     function cargarTabla() {
@@ -33,13 +35,15 @@ var myDataTable = (function() {
                 this.api().columns(data.indexColumnasFiltro).every(function(a, b, c) {
                     cargarFiltros(this);
                 } );
-                actualizarSeleccionElementosTabla(settings.oInstance.api())
+                if (!data.deshabilitarSeleccion) 
+                    actualizarSeleccionElementosTabla(settings.oInstance.api())
             },
             language: configuracionLeyendasTabla,
             order: [[data.mainColumnIndex, data.mainColumnOrder]],
             responsive: true,
             rowCallback: function(fila, dato, dataIndex) {
-                marcarFilaSeleccionada(fila, dato);
+                if (!data.deshabilitarSeleccion) 
+                    marcarFilaSeleccionada(fila, dato);
             }
         });
     }

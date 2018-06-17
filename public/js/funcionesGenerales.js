@@ -89,7 +89,7 @@ function clickModalAgregarCancelar() {
 function asociarInformacionAModalEditar(_elemento) {
     $("#btnModalEditar").attr('data-id-elemento', _elemento._id)
     $.each(_elemento, function(key, val) {
-        $(".form-control[name='" + key + "']").val(val).change();
+        $("#modalEditar .form-control[name='" + key + "']").val(val).change();
     })
 }
 

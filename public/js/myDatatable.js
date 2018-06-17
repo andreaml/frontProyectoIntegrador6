@@ -19,11 +19,9 @@ var myDataTable = (function() {
 
     function init(datosConstructores) {
         data = datosConstructores;
-        if (!data.deshabilitarSeleccion) {
-            clickCheckboxTabla();
-            clickSeleccionarTodo();
-        }
-        cargarTabla();
+        cargarTabla();            
+        clickCheckboxTabla();
+        clickSeleccionarTodo();
     }
 
     function cargarTabla() {
@@ -35,15 +33,13 @@ var myDataTable = (function() {
                 this.api().columns(data.indexColumnasFiltro).every(function(a, b, c) {
                     cargarFiltros(this);
                 } );
-                if (!data.deshabilitarSeleccion) 
-                    actualizarSeleccionElementosTabla(settings.oInstance.api())
+                actualizarSeleccionElementosTabla(settings.oInstance.api())
             },
             language: configuracionLeyendasTabla,
             order: [[data.mainColumnIndex, data.mainColumnOrder]],
             responsive: true,
             rowCallback: function(fila, dato, dataIndex) {
-                if (!data.deshabilitarSeleccion) 
-                    marcarFilaSeleccionada(fila, dato);
+                marcarFilaSeleccionada(fila, dato);
             }
         });
     }
@@ -87,36 +83,40 @@ var myDataTable = (function() {
     function actualizarSeleccionElementosTabla(_dataTable = dataTable){
         let $dataTable         = _dataTable.table().node();
         let $chkbox_all        = $('tbody input[type="checkbox"]', $dataTable);
-        let $chkbox_checked    = $('tbody input[type="checkbox"]:checked', $dataTable);
-        let chkbox_select_all  = $('thead input[name="select_all"]', $dataTable).get(0);
-        habilitarElemento(data.botonEliminarSelector, true);
-        // Si ningún de los checkboxes está seleccionado
-        if($chkbox_checked.length === 0){
-            desmarcarCheckboxesTabla(_dataTable);
-         // Si todos los checkboxes están seleccionados 
-        } else if ($chkbox_checked.length === $chkbox_all.length){
-            chkbox_select_all.checked = true;
-            if('indeterminate' in chkbox_select_all){
-               chkbox_select_all.indeterminate = false;
-            }
-         // Si algunos de los checkboxes están seleccionados
-        } else {
-            chkbox_select_all.checked = true;
-            if('indeterminate' in chkbox_select_all){
-               chkbox_select_all.indeterminate = true;
-            }
-        } 
+        let $chkbox_checked    = $('tbody input[type="checkbox"]:checked', $dataTable) ;
+        let chkbox_select_all  = $('thead input[name="select_all"]', $dataTable).get(0) || [];
+        if (chkbox_select_all.length) {
+            habilitarElemento(data.botonEliminarSelector, true);
+            // Si ningún de los checkboxes está seleccionado
+            if($chkbox_checked.length === 0){
+                desmarcarCheckboxesTabla(_dataTable);
+             // Si todos los checkboxes están seleccionados 
+            } else if ($chkbox_checked.length === $chkbox_all.length){
+                chkbox_select_all.checked = true;
+                if('indeterminate' in chkbox_select_all){
+                   chkbox_select_all.indeterminate = false;
+                }
+             // Si algunos de los checkboxes están seleccionados
+            } else {
+                chkbox_select_all.checked = true;
+                if('indeterminate' in chkbox_select_all){
+                   chkbox_select_all.indeterminate = true;
+                }
+            } 
+        }
     }
 
     function desmarcarCheckboxesTabla(_dataTable = dataTable) {
         let $dataTable         = _dataTable.table().node();
-        let chkbox_select_all  = $('thead input[name="select_all"]', $dataTable).get(0);
-        chkbox_select_all.checked = false;
-        if('indeterminate' in chkbox_select_all){
-            chkbox_select_all.indeterminate = false;
+        let chkbox_select_all  = $('thead input[name="select_all"]', $dataTable).get(0) || [];
+        if(chkbox_select_all.length) {
+            chkbox_select_all.checked = false;
+            if('indeterminate' in chkbox_select_all){
+                chkbox_select_all.indeterminate = false;
+            }
+            elementosSeleccionados = {};
+            habilitarElemento(data.botonEliminarSelector, false);
         }
-        elementosSeleccionados = {};
-        habilitarElemento(data.botonEliminarSelector, false);
     }
 
     function clickCheckboxTabla() {

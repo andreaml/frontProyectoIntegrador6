@@ -82,47 +82,60 @@ var SUCURSALES, ROLES
 
 $('document').ready(function() {
     $("[name='idUsuarioCreador']").val(localStorage.idUsuarioActual);
-    Sucursales()
+    Sucursales().init()
 })
 
 function Sucursales() {
     var sucursalesModel = Model(sessionStorage.urlApi + 'sucursales');
     var sucursalesParaSelect = [];
-    sucursalesModel.all().then(sucursales => {
-        SUCURSALES = sucursales
-        Roles();
-        sucursalesParaSelect = sucursales.map(function(sucursal) {
-            return {texto: sucursal.sucursal, valor: sucursal.idSucursal}
+    function init() {
+        sucursalesModel.all().then(sucursales => {
+            SUCURSALES = sucursales
+            Roles().init();
+            sucursalesParaSelect = sucursales.map(function(sucursal) {
+                return {texto: sucursal.sucursal, valor: sucursal.idSucursal}
+            })
+            cargarValoresSelect("modalAgregarSucursal, #modalEditarSucursal", sucursalesParaSelect);        
         })
-        cargarValoresSelect("modalAgregarSucursal, #modalEditarSucursal", sucursalesParaSelect);        
-    })
-    .catch(error => {
-        notificacionCentro({
-            type: 'warning',
-            text: 'No hay usuarios disponibles por el momento.'
+        .catch(error => {
+            notificacionCentro({
+                type: 'warning',
+                text: 'No hay usuarios disponibles por el momento.'
+            })
         })
-    })
+    }
+
+    return {
+        init: init
+    }
 }
 
 function Roles() {
     var rolesModel = Model(sessionStorage.urlApi + 'roles');
     var rolesParaSelect = [];
-    rolesModel.all().then(roles => {
-        ROLES = roles
-        rolesParaSelect = roles.map(function(rol) {
-            return {texto: rol.rol, valor: rol.idRol}
+    
+    function init() {
+        rolesModel.all().then(roles => {
+            ROLES = roles
+            rolesParaSelect = roles.map(function(rol) {
+                return {texto: rol.rol, valor: rol.idRol}
+            })
+            cargarValoresSelect("modalAgregarRol, #modalEditarRol", rolesParaSelect);
+            Usuarios().init();
+            Usuarios().agregar();
+            Usuarios().eliminar();
         })
-        cargarValoresSelect("modalAgregarRol, #modalEditarRol", rolesParaSelect);
-        Usuarios().init();
-        Usuarios().agregar();
-        Usuarios().eliminar();
-    })
+    }
+
+    return {
+        init: init
+    }
 }
 
 function Usuarios() {
     var usuariosModel = Model(sessionStorage.urlApi + 'usuarios');
     var USUARIOS;
-    function init() {
+    function init() {        
         usuariosModel.all().then(usuarios => {
             USUARIOS = usuarios.map(function(usuario, key) {
                 usuario.sucursal = SUCURSALES.find(sucursal => {
@@ -137,7 +150,7 @@ function Usuarios() {
             cargarTabla();
             Usuarios().editar();
             Usuarios().generarPIN();
-        });
+    });
     }
 
     function cargarTabla() {

@@ -72,4 +72,3 @@ $route['vendedor/clientes']                 = 'sellers/Clients';
 $route['vendedor/solicitudes']              = 'sellers/Requests';
 $route['vendedor/ventas']                   = 'sellers/Sales';
 $route['vendedor/seguimientos']             = 'sellers/Trackings';
-

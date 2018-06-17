@@ -25,10 +25,12 @@ var configuracionBotonesEditarTabla = {
     orderable: false,
     className: 'dt-body-center',
     render: function (data, type, vehiculo) {
-        if (vehiculo.estado == 'Enviado')
+        if (vehiculo.estado == 'Enviado') {
+            vehiculo["_id"] = vehiculo.idVehiculo;
             return `<button type="button" class="btnEditar btn btn-primary mr-2 mb-2" data-toggle="modal" data-target="#modalEditar" data-vehiculo="${encodeURIComponent(JSON.stringify(vehiculo))}">
                         Editar <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>`
+        }
     }
 }
 var SUCURSALES, MODELOS, VEHICULOS, COLORES
@@ -222,6 +224,7 @@ function Stock() {
             clickAgregarVehiculos();
             clickAgregarVehiculo();
             clickAgregarStock();
+            clickEditarVehiculo();
         })
         .catch(error => {
             notificacionCentro({
@@ -289,7 +292,7 @@ function Stock() {
     function clickAgregarVehiculo() {
         $("#btnAgregarVehiculo").unbind('click').click(function () {
             let inputNumSerie = $("#modalAgregarNumSerie")
-            if (vehiculosAgregados.indexOf(inputNumSerie.val()) < 0) {
+            if (vehiculosAgregados.indexOf(inputNumSerie.val()) < 0 && $.trim(inputNumSerie.val()) !== '') {
                 vehiculosAgregados.push(inputNumSerie.val())
                 let tdVehiculo = `
                     <tr data-numero-serie=${inputNumSerie.val()}>
@@ -355,7 +358,6 @@ function Stock() {
         } else {
             datosTabla = {
                 botonEliminarSelector: "",
-                deshabilitarSeleccion: true,
                 configuracionColumnasTabla: configuracionColumnasTabla,
                 definicionColumnas: [configuracionBotonesEditarTabla],
                 filas: vehiculosBusqueda,
@@ -374,8 +376,43 @@ function Stock() {
             let vehiculoCodificado = $(this).data('vehiculo');
             let _vehiculo = JSON.parse(decodeURIComponent(vehiculoCodificado));
             asociarInformacionAModalEditar(_vehiculo);
-            // clickEditarUsuarios();
         });
+    }
+
+    function clickEditarVehiculo() {
+        $('#btnModalEditar').on('click', function () {
+            let formulario = $("#modalEditar form");
+            let formularioValido = formulario.isValid();
+            if (formularioValido) {
+                let idVehiculo = $(this).attr("data-id-elemento")
+                let parametros = $("#modalEditar form").serialize()
+                _editarVehiculo(parametros, idVehiculo);
+            } else {
+                let inputsFormulario = formulario.find('.form-control');
+                $.each(inputsFormulario, function(llave, input) {
+                    validarInput(input);
+                });
+            }
+        });
+    }
+
+    function _editarVehiculo(parametros, idVehiculo) {
+        stockModel.update(parametros, idVehiculo)
+        .then(respuesta => {
+            $("#modalEditar").modal('hide');
+            init();
+            notificacionCentro({
+                type: 'success',
+                title: 'Vehículo modificado exitosamente',
+            })
+        })
+        .catch(error => {
+            notificacionCentro({
+                type: 'warning',
+                title: 'Error al modificar vehículos',
+                text: 'Inténtelo de nuevo, por favor.'
+            })
+        })
     }
 
     return {

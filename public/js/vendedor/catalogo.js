@@ -1,91 +1,221 @@
-var modelos;
-function clickVerVehiculo() {
-    $(".card button").click(function() {
-        $(this).closest(".div-modelo").siblings(".div-modelo").toggle();
-        let nombreModelo = $("#modelo").val();
-        let anio = $("#anio").val();
-        let version = $("#version").val();
-        cargarCaracteristicasModelo(nombreModelo, anio, version);
-    })
+var configuracionColumnasTabla = [
+    {
+        data: 'modelo',
+        defaultContent: ''
+    },
+    {
+        data: 'anio',
+        defaultContent: ''
+    },
+    {
+        data: 'version',
+        defaultContent: ''
+    },
+    {
+        data: '',
+        defaultContent: ''
+    }
+]
+var configuracionBotonesEditarTabla = {
+    targets: [-1],
+    searchable: false,
+    orderable: false,
+    className: 'dt-body-center',
+    render: function (data, type, modelo){
+            return `<button class="btn btn-primary btnVerModelo" type="button" data-id-modelo="${modelo.idModeloVehiculo}">
+                Ver modelo
+            </button>`
+    }
 }
+var COLORES
+var imagenes = {};
+var idTabla = "tablaModelos"
 
-function cargarCaracteristicasModelo(nombreModelo, anio, version) {
-    let modeloSeleccionado = modelos.map(function(modelo) {
-        if (modelo.modelo == nombreModelo && modelo.anio == anio && modelo.version == version) {
-            return modelo 
-        }
-    });
-    modeloSeleccionado = modeloSeleccionado[0];
-    $.each(modeloSeleccionado, function(key, caracteristica) {
-        $(`table .${key}`).text(caracteristica)
-    })
-}
-
-function cargarModelosPorCategoria(idCategoria) {
-    $.get(`${sessionStorage.urlApi}modelos/porCategoria/${idCategoria}`)
-    .done(function(respuesta) {
-        if (respuesta.status) {
-            modelos = respuesta.data;
-            cargarModelosEnSelect();
-        } else {
-            notificacionCentro({
-                type: 'error',
-                title: 'Ocurrió un error al cargar los modelos.',
-                text: 'Inténtelo de nuevo, por favor.'
-            })
+$('document').ready(function () {
+    cargarColores(function (colores) {
+        if (colores) {
+            COLORES = colores;
         }
     })
-    .fail(function(){
-        notificacionCentro({
-            type: 'error',
-            title: 'Ocurrió un error al cargar los modelos.',
-            text: 'Inténtelo de nuevo, por favor.'
+    // Sucursales()
+    Modelos().init()
+})
+
+function Modelos() {
+    var modelosModel = Model(sessionStorage.urlApi + 'modelos');
+    var MODELOS
+    var indexImagenes
+    function init() {
+        modelosModel.find('porCategoria/' + idCategoria)
+        .then(modelos => {
+            MODELOS = modelos
+            // USUARIOS = usuarios.map(function (usuario, key) {
+            //     usuario.sucursal = SUCURSALES.find(sucursal => {
+            //         return sucursal.idSucursal == usuario.idSucursal
+            //     }).sucursal;
+            //     usuario.rol = ROLES.find(rol => {
+            //         return rol.idRol == usuario.idRol
+            //     }).rol;
+            //     usuario._id = usuario.idTrabajador
+            //     return usuario
+            // });
+            cargarTabla();
         })
-    })
-}
+        .catch(error => {
+            notificacionCentro({
+                type: 'warning',
+                text: 'No hay modelos disponibles por el momento.'
+            })
+        })
+    }
 
-function cargarModelosEnSelect() {
-    let datosModelosOption = modelos.map(function(modelo) {
-        return {texto: modelo.modelo, valor: modelo.modelo}
-    });
-    cargarValoresSelect("modelo", datosModelosOption);
-}
+    function cargarTabla() {
+        if (myDataTable.isLoaded()) {
+            myDataTable.actualizarTabla(MODELOS)
+        } else {
+            datosTabla = {
+                botonEliminarSelector: "",
+                configuracionColumnasTabla: configuracionColumnasTabla,
+                definicionColumnas: [configuracionBotonesEditarTabla], 
+                filas: MODELOS,
+                indexColumnasFiltro: [0,1,2],
+                mainColumnIndex: 1, 
+                mainColumnOrder: "asc",
+                tableID: "tablaModelos"
+            }
+            myDataTable.init(datosTabla);
+        }
+        clickVerModelo();
+    }
+    
+    function clickVerModelo() {
+        $(`#${idTabla} tbody`).on('click', '.btnVerModelo', function () {
+            $(this).closest(".div-modelo").siblings("#caracteristicasModelo").fadeIn();
+            let idModelo = $(this).attr("data-id-modelo");
+            $("#btnVincularColorModelo").attr("data-id-modelo", idModelo)
+            cargarCaracteristicasModelo(idModelo);
+            cargarColoresModelo(idModelo);
+        })
+    }
+    
+    function cargarCaracteristicasModelo(idModelo) {
+        let modeloSeleccionado = MODELOS.filter(function(modelo) {
+            if (modelo.idModeloVehiculo == idModelo) {
+                return modelo 
+            }
+        });
+        modeloSeleccionado = modeloSeleccionado[0];
+        $(".nombre-modelo").text(modeloSeleccionado.modelo)
+        $.each(modeloSeleccionado, function(key, caracteristica) {
+            $(`table .${key}`).text(caracteristica)
+        })
+        $("#btnEditar").attr("data-id-modelo", idModelo)
+        idModeloActual = null
+    }
+    
+    function cargarColoresModelo(idModelo) {
+        $.get(`${sessionStorage.urlApi}colores/porModelo/${idModelo}`)
+        .done(function(respuesta) {
+            if (respuesta.status) {
+                mostrarColoresPorModelo(idModelo, respuesta.data)
+            } else {
+                $("#modalGestionarColoresModelo table tbody").html('Sin colores vinculados')
+                $("#coloresDisponibles ul").html('Sin colores disponibles')
+            }
+        })
+        .fail(function() {
+            $("#coloresDisponibles ul").html('Sin colores disponibles')
+        })
+    }
+    
+    function mostrarColoresPorModelo(idModelo, coloresModelo) {
+        let iconoCargando = "<li class='text-center'><span class='fa fa-spinner fa-spin fa-3x fa-fw'></span>"
+        $("#coloresDisponibles ul").html(iconoCargando)
+        $("#modalGestionarColoresModelo table tbody").html('')
+        coloresModelo.map(function(colorModelo) {
+            mostrarNombresColoresModelo(colorModelo);
+        })
+        $(`#selectColores`).trigger('change');    
+    }
+    
+    function mostrarNombresColoresModelo(colorModelo) {
+        COLORES.map(function(color) {
+            if (colorModelo.idColor === color.idColor) { 
+                cargarUrlImagenesColorModelo(colorModelo.idModeloVehiculo, colorModelo.idColor, (arrayImagenes) => {
+                    let indexImagenes = `${colorModelo.idModeloVehiculo}${colorModelo.idColor}`
+                    let valoresModCol = {
+                        idModeloVehiculo: colorModelo.idModeloVehiculo,
+                        idColor: colorModelo.idColor
+                    }
+                    if (arrayImagenes) {
+                        imagenes[indexImagenes] = arrayImagenes
+                        let li = `<li>${color.color}<li>`
+                        let urlImagen = sessionStorage.urlApi + 'public/' + arrayImagenes.imagenes[0]['imagen']
+                        cargarImagenColorModelo(li, urlImagen, indexImagenes, valoresModCol)
+                    } else {
+                        imagenes[indexImagenes] = []
+                        cargarNombreColorModelo(color, indexImagenes, valoresModCol)  
+                    }
+                });
+            }
+        })
+    }
 
-function cargarAniosEnSelect(nombreModelo) {
-    let datosAnioOption = modelos.map(function(modelo) {
-        if (modelo.modelo == nombreModelo) 
-            return {texto: modelo.anio, valor: modelo.anio}
-    });
-    cargarValoresSelect("anio", datosAnioOption);
-}
+    function cargarImagenColorModelo(li, urlImagen = '', indexImagenes, valoresModCol) {
+        $("<img/>")
+        .on('load', function() { 
+            if ($("#coloresDisponibles ul .fa-spinner").length)
+                $("#coloresDisponibles ul").html('');
+            $("#coloresDisponibles ul").append(li).append(this)
+        })
+        .on('error', function(error) { 
+            if ($("#coloresDisponibles ul .fa-spinner").length)
+                $("#coloresDisponibles ul").html('');
+            $("#coloresDisponibles ul").append(li).append("Sin imágenes.")
+        })
+        .on('click', clickImagenColorModelo)
+        .attr("src", urlImagen)
+        .attr("id", indexImagenes)
+        .attr("class", "img-fluid imgColorModelo");
+    }
+    
+    function cargarNombreColorModelo(color, indexImagenes, valoresModCol) {
+        if ($("#coloresDisponibles ul .fa-spinner").length)
+            $("#coloresDisponibles ul").html('');
+        let li = `<li>${color.color}<li>`
+        $("#coloresDisponibles ul").append(li).append("Sin imágenes")
+    }
 
-function cargarVersionesEnSelect(nombreModelo, anio) {
-    let datosVersionesOption = modelos.map(function(modelo) {
-        if (modelo.modelo == nombreModelo && modelo.anio == anio) 
-            return {texto: modelo.version, valor: modelo.version}
-    });
-    cargarValoresSelect("version", datosVersionesOption);
-}
+    function clickImagenColorModelo() {
+        $("#modalCarrusel").modal('show')
+        $("#carruselImagenes .carousel-inner").html('')
+        let indexImagenes = $(this).attr("id")
+        let arrayImagenes = imagenes[indexImagenes].imagenes
+        let divsCarrusel = ''
+        arrayImagenes.map(function(imagen, key) {
+            let urlImagen = sessionStorage.urlApi + 'public/' + imagen.imagen
+            if (key == 0) {
+                divsCarrusel = divs("carousel-item active")
+            } else {
+                divsCarrusel = divs("carousel-item")
+            }
+            let divsCaption = divs("carousel-caption d-none d-md-block")
+            cargarImagenesColorModeloCarrusel(divsCarrusel, divsCaption, urlImagen)
+        })
 
-function seleccionModelo() {
-    $("#modelo").on("change", function() {
-        cargarAniosEnSelect($(this).val())
-    })
-}
+        function cargarImagenesColorModeloCarrusel(divsImg, divsCaption, urlImagen = '') {
+            let img = $("<img/>")
+            .on('load', function() { 
+                let div = $(`${divsImg.apertura}${divsImg.cierre}`).append(this)
+                $("#carruselImagenes .carousel-inner").append(div)
+            })
+            .attr("alt", "Imagen de auto")
+            .attr("src", urlImagen)
+            .attr("class", "d-block w-100 img-fluid");
+        }
+    }
 
-function seleccionAnio() {
-    $("#anio").on("change", function() {
-        let nombreModelo = $("#modelo").val();
-        let anio = $(this).val();
-        cargarVersionesEnSelect(nombreModelo, anio);
-    })
+    return {
+        init: init
+    }
 }
-
-function init() {
-    clickVerVehiculo();
-    cargarModelosPorCategoria(idCategoria);
-    seleccionModelo();
-    seleccionAnio();
-}
-
-init();

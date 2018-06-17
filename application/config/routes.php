@@ -55,7 +55,21 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 $route['gerenteGeneral/sucursales']         = 'general_managers/Branches';
+$route['gerenteGeneral/usuarios']           = 'general_managers/Users';
 $route['gerenteGeneral/catalogo']           = 'general_managers/Cars';
 $route['gerenteGeneral/catalogo/(:any)']    = 'general_managers/Cars/byCategory/$1';
+$route['gerenteGeneral/stocks']             = 'general_managers/Stocks';
+$route['gerenteGeneral/reportes']           = 'general_managers/Reports';
 
-$route['gerenteGeneral/usuarios'] = 'general_managers/Users';
+$route['gerenteAgencia/usuarios']           = 'agency_managers/Users';
+$route['gerenteAgencia/envios']             = 'agency_managers/Shippings';
+$route['gerenteAgencia/stocks']             = 'agency_managers/Stocks';
+$route['gerenteAgencia/reportes']           = 'agency_managers/Reports';
+
+$route['vendedor/catalogo']                 = 'sellers/Cars';
+$route['vendedor/catalogo/(:any)']          = 'sellers/Cars/byCategory/$1';
+$route['vendedor/clientes']                 = 'sellers/Clients';
+$route['vendedor/solicitudes']              = 'sellers/Requests';
+$route['vendedor/ventas']                   = 'sellers/Sales';
+$route['vendedor/seguimientos']             = 'sellers/Trackings';
+

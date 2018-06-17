@@ -164,7 +164,6 @@ function Usuarios() {
             let idUsuario = $(this).data('id-usuario');
             usuariosModel.update({contrasenia: pin}, idUsuario + "/contrasenia")
             .then(usuario => {
-                console.log(usuario)
                 alertPIN(pin);
             })
             .catch(error => {

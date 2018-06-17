@@ -93,5 +93,18 @@ function asociarInformacionAModalEditar(_elemento) {
     })
 }
 
+function filtrarArrayObjetos(arr, arrayLlaves, arrayValores) {
+    return arr.filter(obj => {
+        let status = true
+        $.each(arrayLlaves, function(key, val) {
+            status &= obj[val].includes(arrayValores[key])
+        })
+        return status;
+        // Object.keys(obj).some(key => 
+        //     (obj[key]) ? obj[key].includes(searchKey) : false
+        // )
+    });
+}
+
 vincularEventoKeyupConInput();
 clickModalAgregarCancelar();

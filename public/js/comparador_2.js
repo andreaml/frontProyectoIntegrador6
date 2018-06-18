@@ -1,64 +1,65 @@
-var Comparador = function() {
-  var _api = null;
-  var _modelosAutos = null;
-  var _idComponente = null;
+function Comparador() {
+  this._api = null;
+  this._modelosAutos = null;
+  this._idComponente = null;
+}
 
-  function init(api, idComponente) {
-    _api = api;
-    _idComponente = idComponente;
-    obtenerModelos();
-    iniciarEventos();
-  }
+Comparador.prototype.init = function (api, idComponente) {
+    this._api = api;
+    this._idComponente = idComponente;
+    this.obtenerModelos();
+    this.iniciarEventos();
+}
 
-  function iniciarEventos() {
-    var selectModelo = $(`#${_idComponente} .selectModelo`);
+Comparador.prototype.iniciarEventos = function () {
+    var selectModelo = $(`#${this._idComponente} .selectModelo`);
     selectModelo.change(function(event) {
-      cambiarVariantes(event.currentTarget.value);
+      this.cambiarVariantes(event.currentTarget.value);
     });
-    var selectVariante = $(`#${_idComponente} .selectVariante`);
+    var selectVariante = $(`#${this._idComponente} .selectVariante`);
     selectVariante.change(function(event) {
-      desplegarVariante(event.currentTarget.value);
+      this.desplegarVariante(event.currentTarget.value);
     })
   }
 
-  function obtenerModelos() {
-    _api.all()
+  Comparador.prototype.obtenerModelos = function() {
+    this._api.search()
       .then(function(modelosAutos) {
         _modelosAutos = modelosAutos;
-        desplegarOpciones();
+        this.desplegarOpciones();
       });
   }
 
-  function desplegarOpciones() {
-    var selectModelo = $(`#${_idComponente} .selectModelo`);
-    selectModelo.empty();
-    modelos.forEach(function(itemModelo) {
-      selectModelo.append(`<option value="${itemModelo.id}">${itemModelo.nombre}</option>`);
+Comparador.prototype.desplegarOpciones = function() {
+	console.log(this.modeloAutos)
+    var selectModelo = $(`#${this._idComponente} .selectModelo`);
+	selectModelo.empty();
+    this._modelosAutos.forEach(function(itemModelo) {
+      selectModelo.append(`<option value="${itemModelo.nombre}">${itemModelo.nombre}</option>`);
     });
   }
 
-  function cambiarVariantes(idModelo) {
+Comparador.prototype.cambiarVariantes = function(idModelo) {
     var modeloAutos = obtenerModeloAuto(idModelo);
-    var selectVariante = $(`#${_idComponente} .selectVariante`);
-    modeloAutos.variantes.forEach(function(variante) {
-      selectVariante.append(`<option value="${variante.id}">${variante.nombre}</option>`);
+    var selectVariante = $(`#${this._idComponente} .selectVariante`);
+    selectVariante.empty();
+    modeloAutos.variantes.map(function(variante) {
+      selectVariante.append(`<option value="${variante.nombre}">${variante.nombre}</option>`);
     });
   }
 
-  function obtenerModeloAuto(idModelo) {
+Comparador.prototype.obtenerModeloAuto = function(idModelo) {
     return _modelosAutos.filter(function(itemModelo) {
       return itemModelo.idModelo = idModelo;
     })[0];
   }
 
-  function desplegarVariante(idVariante) {
+Comparador.prototype.desplegarVariante = function(idVariante) {
     // TODO buscar la info de la variante y desplegarla en la tabla
   }
 
-  return {
-    init
-  };
-}
 
-var comparador1 = Comparador();
-comparador1.init(api, idComponente);
+var comparador1 = new Comparador();
+comparador1.init(Model(sessionStorage.urlApi + 'modelos/publico'), 'tablaCaracteristicasModelo1');
+var comparador2 = new Comparador();
+comparador2.init(Model('http://192.168.1.10:3000/api/ComparadorExt'), 'tablaCaracteristicasModelo2');

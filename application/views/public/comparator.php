@@ -119,7 +119,7 @@
                                                             <label class="input-group-text">Marca</label>
                                                         </div>
                                                         <select class="custom-select selectMarca">
-                                                            <option value="volkswagen" selected>Volkswagen</option>
+                                                            <option value="nissan" selected>Nissan</option>
                                                         </select>
                                                     </div>
                                                 </div>

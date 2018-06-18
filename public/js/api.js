@@ -48,7 +48,7 @@ var Model = function (apiUrl) {
         });
     }
 
-    function search(modelId) {
+    function search(modelId = '') {
         return specialApi(rute(modelId), _verbs.get);
     }
 

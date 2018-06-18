@@ -54,6 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
+$route['comparador']                        = 'public/Comparator';
+
 $route['gerenteGeneral/sucursales']         = 'general_managers/Branches';
 $route['gerenteGeneral/usuarios']           = 'general_managers/Users';
 $route['gerenteGeneral/catalogo']           = 'general_managers/Cars';

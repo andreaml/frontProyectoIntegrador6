@@ -37,7 +37,7 @@ $('document').ready(function () {
             COLORES = colores;
         }
     })
-    // Sucursales()
+    obtenerSucursales();
     Modelos().init()
 })
 
@@ -92,7 +92,7 @@ function Modelos() {
         $(`#${idTabla} tbody`).on('click', '.btnVerModelo', function () {
             $(this).closest(".div-modelo").siblings("#caracteristicasModelo").fadeIn();
             let idModelo = $(this).attr("data-id-modelo");
-            $("#btnVincularColorModelo").attr("data-id-modelo", idModelo)
+            $("#btnVincularColorModelo, #btnVerificarExistencia").attr("data-id-modelo", idModelo)
             cargarCaracteristicasModelo(idModelo);
             cargarColoresModelo(idModelo);
         })
@@ -218,4 +218,21 @@ function Modelos() {
     return {
         init: init
     }
+}
+
+function obtenerSucursales() {
+    var sucursalesModel = Model(sessionStorage.urlApi + 'sucursales');
+    sucursalesModel.all().then(function(sucursales) {
+        let existenciaSucursales = sucursales.map(function(sucursal) {
+
+        })
+    })
+}
+
+function obtenerExistenciaVehiculos(idModelo) {
+    var stockModel = Model(sessionStorage.urlApi + 'stock');
+    stockModel.find("/porModelo/" + idModelo).then(vehiculos => {
+        console.log(vehiculos)
+    })
+    
 }

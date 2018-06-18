@@ -31,6 +31,12 @@ class MY_Controller extends CI_Controller {
   }
 }
 
+class MY_Public_Controller extends MY_Controller {
+  public function __construct() {
+    parent::__construct();
+    $this->template->set('user', 'public');
+  }
+}
 class MY_Agency_Managers_Controller extends MY_Controller {
   public function __construct() {
     parent::__construct();

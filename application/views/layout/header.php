@@ -55,6 +55,7 @@
 					<a class="nav-link" href="<?= base_url("gerenteGeneral/reportes") ?>">Reportes</a>
 				</li>
 				<?php endif; ?>
+				<?php if ($user != 'public'): ?>
 				<li class="nav-item dropdown ml-lg-3">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-bell"></i>
@@ -80,6 +81,7 @@
 						<a class="dropdown-item" href="#">Cerrar sesión</a>
 					</div>
 				</li>
+				<?php endif; ?>				
 			</ul>
 		</div>
 	</nav>

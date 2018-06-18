@@ -1,5 +1,5 @@
-sessionStorage.setItem('urlApi', 'http://infomatika.ddns.net/volkswagen/');
-//sessionStorage.setItem('urlApi', 'http://127.0.0.1/volkswagen/');
+// sessionStorage.setItem('urlApi', 'http://infomatika.ddns.net/volkswagen/');
+sessionStorage.setItem('urlApi', 'http://127.0.0.1/volkswagen/');
 localStorage.setItem("idUsuarioActual", 1)
 var configuracionLeyendasTabla = {
     lengthMenu: "Mostrar _MENU_ resultados",
@@ -9,14 +9,14 @@ var configuracionLeyendasTabla = {
     infoEmpty: "No hay resultados disponibles",
     infoFiltered: "(filtrado de un total de _MAX_ elementos)",
     paginate: {
-        first:    'Primera',
+        first: 'Primera',
         previous: '« Anterior',
-        next:     'Siguiente »',
-        last:     'Última'
+        next: 'Siguiente »',
+        last: 'Última'
     }
 }
 
-var divs = function(clases) {
+var divs = function (clases) {
     return {
         apertura: `<div class="${clases}">`,
         cierre: `</div>`
@@ -37,7 +37,7 @@ const notificacionCentro = swal.mixin({
 });
 
 //Se agrega función 'isValid' a librería de jQuery.
-$.fn.isValid = function(){
+$.fn.isValid = function () {
     return this[0].checkValidity()
 }
 
@@ -46,8 +46,8 @@ function habilitarElemento(selectorElemento, boolHabilitar) {
 }
 
 function validarInput(input) {
-    let formGroup = $(input).closest('.form-group, .input-group'); 
-    if(!formGroup.hasClass('was-validated')) {
+    let formGroup = $(input).closest('.form-group, .input-group');
+    if (!formGroup.hasClass('was-validated')) {
         formGroup.addClass('was-validated');
     }
     if (!input.checkValidity()) {
@@ -56,7 +56,7 @@ function validarInput(input) {
 }
 
 function vincularEventoKeyupConInput() {
-    $('.form-control').unbind('keyup').on('keyup', function() {
+    $('.form-control').unbind('keyup').on('keyup', function () {
         validarInput(this);
     });
 }
@@ -67,7 +67,7 @@ $(function () {
 
 function cargarValoresSelect(idSelect, listaOpciones) {
     $(`#${idSelect}`).empty().attr('disabled', false);
-    $.each(listaOpciones, function(key, value) {
+    $.each(listaOpciones, function (key, value) {
         let opcion = new Option(value.texto, value.valor);
         $(`#${idSelect}`).append(opcion);
     });
@@ -77,18 +77,18 @@ function cargarValoresSelect(idSelect, listaOpciones) {
 function limpiarFormulario(idFormulario) {
     $("#" + idFormulario + " input, " + "#" + idFormulario + " textarea").val('');
     $("#" + idFormulario + " select").val($("#" + idFormulario + " option:first").val());
-    $("#" + idFormulario +" .was-validated").removeClass("was-validated");
+    $("#" + idFormulario + " .was-validated").removeClass("was-validated");
 }
 
 function clickModalAgregarCancelar() {
-    $("#modalAgregar .btn-danger").click(function(){
+    $("#modalAgregar .btn-danger").click(function () {
         limpiarFormulario("modalAgregar form")
     });
 }
 
 function asociarInformacionAModalEditar(_elemento) {
     $("#btnModalEditar").attr('data-id-elemento', _elemento._id)
-    $.each(_elemento, function(key, val) {
+    $.each(_elemento, function (key, val) {
         $("#modalEditar .form-control[name='" + key + "']").val(val).change();
     })
 }
@@ -96,7 +96,7 @@ function asociarInformacionAModalEditar(_elemento) {
 function filtrarArrayObjetos(arr, arrayLlaves, arrayValores) {
     return arr.filter(obj => {
         let status = true
-        $.each(arrayLlaves, function(key, val) {
+        $.each(arrayLlaves, function (key, val) {
             status &= obj[val].includes(arrayValores[key])
         })
         return status;

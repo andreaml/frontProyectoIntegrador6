@@ -199,6 +199,62 @@
 	</div>
 </div>
 <!-- Modal imagenes termina -->
+<!-- Modal existencia inicia -->
+<div class="modal fade" id="modalExistencia" tabindex="-1" role="dialog" aria-labelledby="modalExistenciaLabel" data-backdrop="static">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalExistenciaLabel">Modelo seleccionado - Existencia de vehículos</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table id="catalogoExistencia" class="table">
+					<thead>
+						<tr>
+							<td>Sucursal</td>
+							<td>Número de serie</td>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal existencia termina -->
+<!-- Modal solicitud inicia -->
+<div class="modal fade" id="modalExistencia" tabindex="-1" role="dialog" aria-labelledby="modalExistenciaLabel" data-backdrop="static">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalExistenciaLabel">Modelo seleccionado - Existencia de vehículos</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table id="catalogoExistencia" class="table">
+					<thead>
+						<tr>
+							<td>Sucursal</td>
+							<td>Número de serie</td>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal solicitud termina -->
 <script>
 	var idCategoria = "<?= $idCategory ?>";
 </script>

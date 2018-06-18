@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $page_title; ?></title>
     <?= $stylesheets; ?>
+    <script>
+        sessionStorage.baseUrl='<?php echo base_url() ?>';
+    </script>
   </head>
   <body>
     <?= $header; ?>

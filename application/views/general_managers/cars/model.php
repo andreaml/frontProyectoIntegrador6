@@ -160,10 +160,10 @@
                                     <i class="fa fa-window-restore fa-2x" aria-hidden="true"></i>
                                     <br> Comparar este modelo
                                 </button>
-                                <button class="btn btn-primary btn-block my-3" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
+                                <a href="<?= base_url("gerenteGeneral/stocks") ?>" class="btn btn-primary btn-block my-3" >
                                     <i class="fa fa-check-square-o fa-2x" aria-hidden="true"></i>
                                     <br> Gestionar vehículos
-                                </button>
+                                </a>
                                 <h5>Colores disponibles
                                     <div class="btn-group dropleft">
                                         <button type="button" class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -174,10 +174,6 @@
                                                 <i class="fa fa-th-large" aria-hidden="true"></i>
                                                 Gestionar colores de modelo
                                             </button>
-                                            <!-- <button class="dropdown-item" type="button">
-                                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
-                                                    Administrar imágenes de modelo
-                                                </button> -->
                                         </div>
                                     </div>
                                 </h5>

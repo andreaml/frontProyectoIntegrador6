@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://127.0.0.1/adminVehiculos2';
-$config['base_url'] = 'http://sistema-volkswagen.ddns.net/sistema';
+$config['base_url'] = 'http://infomatika.ddns.net/sistema';
 
 /*
 |--------------------------------------------------------------------------

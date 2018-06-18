@@ -40,18 +40,30 @@ class MY_Public_Controller extends MY_Controller {
 class MY_Agency_Managers_Controller extends MY_Controller {
   public function __construct() {
     parent::__construct();
+    if(!@$this->session->userdata){
+			redirect(base_url(''), 'refresh');
+			die;
+		}
     $this->template->set('user', 'agency_manager');
   }
 }
 class MY_General_Managers_Controller extends MY_Controller {
   public function __construct() {
     parent::__construct();
+    if(!@$this->session->userdata){
+			redirect(base_url(''), 'refresh');
+			die;
+		}
     $this->template->set('user', 'general_manager');
   }
 }
 class MY_Sellers_Controller extends MY_Controller {
   public function __construct() {
     parent::__construct();
+    if(!@$this->session->userdata){
+      redirect(base_url(''), 'refresh');
+			die;
+		}
     $this->template->set('user', 'seller');
   }
 }

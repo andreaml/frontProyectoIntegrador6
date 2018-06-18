@@ -39,6 +39,7 @@ $('document').ready(function () {
     })
     obtenerSucursales();
     Modelos().init()
+    clickBtnVerificarExistencia()
 })
 
 function Modelos() {
@@ -220,12 +221,17 @@ function Modelos() {
     }
 }
 
-function obtenerSucursales() {
-    var sucursalesModel = Model(sessionStorage.urlApi + 'sucursales');
-    sucursalesModel.all().then(function(sucursales) {
-        let existenciaSucursales = sucursales.map(function(sucursal) {
+// function obtenerSucursales() {
+//     var sucursalesModel = Model(sessionStorage.urlApi + 'sucursales');
+//     sucursalesModel.all().then(function(sucursales) {
+        
+//     })
+// }
 
-        })
+function clickBtnVerificarExistencia() {
+    $("#btnVerificarExistencia").click(function() {
+        let idModelo = $(this).attr("data-id-modelo");
+        obtenerExistenciaVehiculos(idModelo)
     })
 }
 
@@ -233,6 +239,26 @@ function obtenerExistenciaVehiculos(idModelo) {
     var stockModel = Model(sessionStorage.urlApi + 'stock');
     stockModel.find("/porModelo/" + idModelo).then(vehiculos => {
         console.log(vehiculos)
+        vehiculos.map(function(vehiculo) {
+            let tds = `
+                <td>${vehiculo.sucursal}</td>
+                <td>${vehiculo.numeroSerie}</td>
+                <td>
+                    <button type="button" data-id-vehiculo="${vehiculo.idVehiculo}" class="solicitarVehiculo btn btn-info">
+                    Solicitar vehículo
+                    </button>
+                </td>
+            `
+            let tr = $("<tr></tr>").append($(tds))
+            $("#catalogoExistencia tbody").append(tr)
+        })
+        clickSolicitarVehiculo();
+})
+}
+
+function clickSolicitarVehiculo() {
+    $(".solicitarVehiculo").unbind("click").click(function() {
+        $("#modalExistencia").modal("hide");
+        $("#modalSolicitud").modal("show");
     })
-    
 }

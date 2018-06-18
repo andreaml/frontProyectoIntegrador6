@@ -197,7 +197,7 @@ function Usuarios() {
     function queueAlertPIN(pin) {
         return swal.insertQueueStep({
             title: 'PIN de usuario: ' + pin,
-            text: 'Clave de acceso provisional para el usuario.'
+            text: 'Clave de acceso para el usuario.'
         })
     }
 
@@ -205,7 +205,7 @@ function Usuarios() {
         return notificacionCentro({
             type: 'info',
             title: 'PIN de usuario: ' + pin,
-            text: 'Clave de acceso provisional para el usuario.'
+            text: 'Clave de acceso para el usuario.'
         })
     }
 

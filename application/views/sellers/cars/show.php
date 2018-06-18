@@ -145,10 +145,10 @@
 							</table>
 						</div>
 						<div class="col-12 col-md-5 pr-0">
-							<button class="btn btn-secondary btn-block my-3" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
+							<!-- <button class="btn btn-secondary btn-block my-3" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
 								<i class="fa fa-window-restore fa-2x" aria-hidden="true"></i>
 								<br> Comparar este vehículo
-							</button>
+							</button> -->
 							<h5>Transacciones</h5>
 							<button id="btnVerificarExistencia" class="btn btn-primary btn-block my-3" type="button" data-toggle="modal" data-target="#modalExistencia">
 								<i class="fa fa-check-square-o fa-2x" aria-hidden="true"></i>

@@ -156,10 +156,10 @@
                                 </table>
                             </div>
                             <div class="col-12 col-md-5 pr-0">
-                                <button class="btn btn-secondary btn-block my-3" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
+                                <!-- <button class="btn btn-secondary btn-block my-3" type="button" data-toggle="collapse" data-target="#caracteristicasModelo">
                                     <i class="fa fa-window-restore fa-2x" aria-hidden="true"></i>
                                     <br> Comparar este modelo
-                                </button>
+                                </button> -->
                                 <a href="<?= base_url("gerenteGeneral/stocks") ?>" class="btn btn-primary btn-block my-3" >
                                     <i class="fa fa-check-square-o fa-2x" aria-hidden="true"></i>
                                     <br> Gestionar vehículos

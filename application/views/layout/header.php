@@ -55,7 +55,7 @@
 				<?php if ($user != 'public'): ?>
 				<li class="nav-item dropdown btn-secondary ml-lg-3">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Usuario
+						<?= $this->session->userData['nombre'] ?>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="#">Perfil:

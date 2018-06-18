@@ -26,7 +26,7 @@
 				<li class="nav-item <?= ($page_title == "Catálogo") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("vendedor/catalogo") ?>">Catálogo</a>
 				</li>
-				<li class="nav-item <?= ($page_title == "Clientes") ? 'active' : '' ?>">
+				<!-- <li class="nav-item <?= ($page_title == "Clientes") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("vendedor/clientes") ?>">Clientes</a>
 				</li>
 				<li class="nav-item <?= ($page_title == "Solicitudes") ? 'active' : '' ?>">
@@ -34,10 +34,10 @@
 				</li>
 				<li class="nav-item <?= ($page_title == "Ventas") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("vendedor/ventas") ?>">Ventas</a>
-				</li>
-				<li class="nav-item <?= ($page_title == "Seguimientos") ? 'active' : '' ?>">
+				</li> -->
+				<!-- <li class="nav-item <?= ($page_title == "Seguimientos") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("vendedor/seguimientos") ?>">Seguimientos</a>
-				</li>
+				</li> -->
 				<?php elseif ($user == 'general_manager'): ?>
 				<li class="nav-item <?= ($page_title == "Sucursales") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("gerenteGeneral/sucursales") ?>">Sucursales</a>

@@ -37,7 +37,6 @@ $('document').ready(function () {
             COLORES = colores;
         }
     })
-    obtenerSucursales();
     Modelos().init()
     clickBtnVerificarExistencia()
 })

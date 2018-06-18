@@ -159,9 +159,9 @@ function cargarModelosPorCategoria(idCategoria) {
             mostrarModelos(respuesta.data);
         } else {
             notificacionCentro({
-                type: 'error',
-                title: 'Ocurrió un error al cargar los modelos.',
-                text: 'Inténtelo de nuevo, por favor.'
+                type: 'warning',
+                title: 'No hay modelos disponibles.',
+                text: 'Agregue un modelo, por favor.'
             })
         }
     })
@@ -318,7 +318,7 @@ function valoresFormularioModelo(idModalFormulario) {
 }
 
 function agregarModelo(parametros) {
-    $.post(`${sessionStorage.urlApi}modelos/nuevo`, parametros)
+    $.post(`${sessionStorage.urlApi}modelos/`, parametros)
     .done(function(respuesta) {
         if (respuesta.status) {
             $("#modalAgregar").modal('hide');
@@ -721,6 +721,7 @@ function mostrarNombreArchivoSeleccionado() {
 }
 
 function init() {
+    clickModalAgregarModelo()
     detectarCambioSelectColores()
     cargarModelosPorCategoria(idCategoria)
     cargarColores(function(arrayColores) {
@@ -732,7 +733,6 @@ function init() {
             $("#coloresDisponibles ul").html('Sin colores disponibles')            
         }
     });
-    clickModalAgregarModelo()
     clickEditarModelo()
     clickModalEditarModelo()
     mostrarNombreArchivoSeleccionado()

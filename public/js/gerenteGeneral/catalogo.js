@@ -566,6 +566,7 @@ function cargarImagenesColorModeloCarrusel(divsImg, divsCaption, urlImagen = '',
     .on('load', function() { 
         let div = $(`${divsImg.apertura}${divsImg.cierre}`).append(this).append(caption)
         $("#carruselImagenes .carousel-inner").append(div)
+        $("#carruselImagenes").carousel('cycle')
     })
     .attr("alt", "Imagen de auto")
     .attr("src", urlImagen)

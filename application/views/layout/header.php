@@ -51,35 +51,27 @@
 				<li class="nav-item <?= ($page_title == "Stocks") ? 'active' : '' ?>">
 					<a class="nav-link" href="<?= base_url("gerenteGeneral/stocks") ?>">Stocks</a>
 				</li>
-				<li class="nav-item <?= ($page_title == "Reportes") ? 'active' : '' ?>">
-					<a class="nav-link" href="<?= base_url("gerenteGeneral/reportes") ?>">Reportes</a>
-				</li>
 				<?php endif; ?>
-				<li class="nav-item dropdown ml-lg-3">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-bell"></i>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="#">Notificación 1</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Notificación 2</a>
-					</div>
-				</li>
+				<?php if ($user != 'public'): ?>
 				<li class="nav-item dropdown btn-secondary ml-lg-3">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Usuario
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="#">Perfil:
+						<?php if ($user == 'agency_manager'): ?>
 							<span>Gerente de agencia</span>
+						<?php elseif ($user == 'seller'): ?>
+							<span>Vendedor</span>
+						<?php elseif ($user == 'general_manager'): ?>
+							<span>Gerente de general</span>
+						<?php endif; ?>	
 						</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Opción 1</a>
-						<a class="dropdown-item" href="#">Opción 2</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Cerrar sesión</a>
+						<a class="dropdown-item" href="<?php echo base_url('logout')?>">Cerrar sesión</a>
 					</div>
 				</li>
+				<?php endif; ?>				
 			</ul>
 		</div>
 	</nav>

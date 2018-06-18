@@ -37,8 +37,9 @@ $('document').ready(function () {
             COLORES = colores;
         }
     })
-    // Sucursales()
+    obtenerSucursales();
     Modelos().init()
+    clickBtnVerificarExistencia()
 })
 
 function Modelos() {
@@ -92,7 +93,7 @@ function Modelos() {
         $(`#${idTabla} tbody`).on('click', '.btnVerModelo', function () {
             $(this).closest(".div-modelo").siblings("#caracteristicasModelo").fadeIn();
             let idModelo = $(this).attr("data-id-modelo");
-            $("#btnVincularColorModelo").attr("data-id-modelo", idModelo)
+            $("#btnVincularColorModelo, #btnVerificarExistencia").attr("data-id-modelo", idModelo)
             cargarCaracteristicasModelo(idModelo);
             cargarColoresModelo(idModelo);
         })
@@ -218,4 +219,46 @@ function Modelos() {
     return {
         init: init
     }
+}
+
+// function obtenerSucursales() {
+//     var sucursalesModel = Model(sessionStorage.urlApi + 'sucursales');
+//     sucursalesModel.all().then(function(sucursales) {
+        
+//     })
+// }
+
+function clickBtnVerificarExistencia() {
+    $("#btnVerificarExistencia").click(function() {
+        let idModelo = $(this).attr("data-id-modelo");
+        obtenerExistenciaVehiculos(idModelo)
+    })
+}
+
+function obtenerExistenciaVehiculos(idModelo) {
+    var stockModel = Model(sessionStorage.urlApi + 'stock');
+    stockModel.find("/porModelo/" + idModelo).then(vehiculos => {
+        console.log(vehiculos)
+        vehiculos.map(function(vehiculo) {
+            let tds = `
+                <td>${vehiculo.sucursal}</td>
+                <td>${vehiculo.numeroSerie}</td>
+                <td>
+                    <button type="button" data-id-vehiculo="${vehiculo.idVehiculo}" class="solicitarVehiculo btn btn-info">
+                    Solicitar vehículo
+                    </button>
+                </td>
+            `
+            let tr = $("<tr></tr>").append($(tds))
+            $("#catalogoExistencia tbody").append(tr)
+        })
+        clickSolicitarVehiculo();
+})
+}
+
+function clickSolicitarVehiculo() {
+    $(".solicitarVehiculo").unbind("click").click(function() {
+        $("#modalExistencia").modal("hide");
+        $("#modalSolicitud").modal("show");
+    })
 }
